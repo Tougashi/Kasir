@@ -35,7 +35,7 @@
                                 <div class="card-body">
                                     <div class="p-4 rounded">
                                         <div class="text-center">
-                                            <img src="/assets/image/logo-text.png" alt="Kasir" width="300" class="rounded mx-auto d-block">
+                                            <img src="{{asset('assets/images/logo-text.png')}}" alt="Kasir" width="300" class="rounded mx-auto d-block">
                                         </div>
                                         <br>
                                         <div class="form-body">

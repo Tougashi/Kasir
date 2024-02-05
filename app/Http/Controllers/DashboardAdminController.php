@@ -12,7 +12,7 @@ class DashboardAdminController extends Controller
     public function index()
     {
         return view('Admin.Page.index', [
-            'title' => 'Konx'
+            'title' => 'Dashboard Admin'
         ]);
     }
 
