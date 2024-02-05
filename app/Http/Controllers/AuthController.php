@@ -33,14 +33,14 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-
+            $user = auth()->user();
+            // dd($user);
             if($user->roles == 'Admin') {
                 return redirect('admin/dashboard')->with(['success', 'Berhasil Login Admin']);
             }elseif($user->roles == 'Cashier') {
                 return redirect('kasir/dashboard')->with(['success', 'Berhasil Login Kasir']);
             }elseif($user->roles == 'Guest') {
-                return redirect('/beranda')->with(['success', 'Berhasil Login Pelanggan']);   
+                return redirect('/beranda')->with(['success', 'Berhasil Login Pelanggan']);
             }else{
                 return redirect('/')->with(['?']);
             }
@@ -60,7 +60,7 @@ class AuthController extends Controller
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->roleId = 3;
+        $user->roles = 'Guest';
         $user->save();
         return back()->with('success', 'Berhasil Registrasi');
     }
@@ -68,7 +68,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('/login');
+        return redirect()->route('login');
     }
 
 }

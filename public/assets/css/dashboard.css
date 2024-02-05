@@ -1,0 +1,35 @@
+.w-20p{
+    width: 16%;
+}
+
+
+.w-80p{
+    width: 84%;
+}
+
+.sidebar-menu a{
+    text-align: left;
+    margin: 5px 0 5px 0;
+}
+
+
+@media screen and (max-width: 1100px) {
+    .w-20p{
+        width: 20%;
+    }
+
+    .w-80p{
+        width: 80%;
+    }
+}
+
+
+@media screen and (max-width: 975px) {
+    .w-20p{
+        display: none;
+    }
+
+    .w-80p{
+        width: 100%;
+    }
+}
