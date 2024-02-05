@@ -4,6 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Category;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +16,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+       
+        User::factory()->create([
+            'email' => 'admin@example.com',
+            'username' => 'Admin',
+            'password' => Hash::make('password'),
+            'roles' => 'Admin'
+        ]);
+        User::factory()->create([
+            'email' => 'kasir@example.com',
+            'username' => 'Kasir',
+            'password' => Hash::make('password'),
+            'roles' => 'Cashier'
+        ]);
+        User::factory()->create([
+            'email' => 'pelanggan@example.com',
+            'username' => 'Pelanggan',
+            'password' => Hash::make('password'),
+            'roles' => 'Guest'
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Category::factory()->create([
+            'name' => 'Makanan',
+            'slug' => 'minuman',
+            'description' => 'Makanan Berat & Ringan'
+        ]);
+        Category::factory()->create([
+            'name' => 'Minuman',
+            'slug' => 'minuman',
+            'description' => 'Minuman Berat & Ringan'
+        ]);
     }
 }
