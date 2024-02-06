@@ -11,7 +11,7 @@ class DashboardAdminController extends Controller
      */
     public function index()
     {
-        return view('Admin.Page.index', [
+        return view('Pages.Admin.page.index', [
             'title' => 'Dashboard Admin'
         ]);
     }

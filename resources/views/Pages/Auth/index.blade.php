@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title }}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo.png">
 	<link href="{{ asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/assets/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
@@ -13,7 +15,6 @@
 	<script src="{{ asset('/assets/js/bootstrap.bundle.min.js') }}"></script>
 	<!--plugins-->
 	<script src="{{ asset('/assets/js/jquery.min.js') }}"></script>
-	<script src="{{ asset('/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
 </head>
 <body style="overflow: hidden">
         <div class="wrapper">
