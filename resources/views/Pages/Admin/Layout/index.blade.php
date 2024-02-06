@@ -21,7 +21,7 @@
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <!-- Bootstrap JS -->
     <script src="{{ asset('/assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
     <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css')}}">
     <script type="text/javascript" src="{{asset('assets/plugins/datatable/js/dataTables.min.js')}}"></script>
 </head>
@@ -38,15 +38,6 @@
         </div>
     </div>
     @stack('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                responsive: true,
-                searching: true,
-                autoWidth: false
-            });
-        });
-    </script>
 </body>
 
 </html>

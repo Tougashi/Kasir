@@ -22,7 +22,7 @@
                 <div class="container">
                     <br><br><br><br>
                     <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
-                        <div class="col-20 mx-auto" style="width: 700px;">
+                        <div class="col-20 mx-auto" style="width: 500px;">
                             <div class="card mt-auto border-primary my-5 border-2 rounded">
                                 <div class="card-body">
                                     <div class="p-4 rounded">
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <footer class="bg-primary shadow-sm border-top border-2 p-2 text-center fixed-bottom">
+        <footer class="bg-primary shadow-sm border-top border-2 p-2 text-center fixed-bottom bottom-0 w-100">
         <p class="mb-0 footer text-light">© KOPERASI SISWA SMKN 2 TASIKMALAYA</p>
     </footer>
     {{-- HIDE & SHOW PASSWORD --}}

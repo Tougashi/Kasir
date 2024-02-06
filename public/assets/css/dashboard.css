@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap');
 
-
-body {
-    /* font-family: 'Poppins'; */
+body{
     overflow: hidden;
 }
 
@@ -10,9 +8,14 @@ body {
     min-height: 100vh;
 }
 
+#content{
+    max-height: 80vh;
+    overflow: auto;
+}
 
-
-.hr {
+.mm-show{
+    display: block !important;
+    margin-left: 10px;
 }
 
 .w-20p{
