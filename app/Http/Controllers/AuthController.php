@@ -13,14 +13,14 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('Auth.index', [
+        return view('Pages.Auth.index', [
             'title' => 'Login'
         ]);
     }
 
     public function registrasi()
     {
-        return view('Auth.Registration.index', [
+        return view('Pages.Auth.Registration.index', [
             'title' => 'Registrasi'
         ]);
     }
@@ -34,7 +34,6 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = auth()->user();
-            // dd($user);
             if($user->roles == 'Admin') {
                 return redirect('admin/dashboard')->with(['success', 'Berhasil Login Admin']);
             }elseif($user->roles == 'Cashier') {

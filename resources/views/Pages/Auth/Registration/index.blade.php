@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body style="overflow: hidden">
+<body style="">
     <div id="particles-js"></div>
         <div class="wrapper">
             <br><br>

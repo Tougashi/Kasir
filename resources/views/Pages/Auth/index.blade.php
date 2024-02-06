@@ -16,13 +16,13 @@
 	<!--plugins-->
 	<script src="{{ asset('/assets/js/jquery.min.js') }}"></script>
 </head>
-<body style="overflow: hidden">
+<body style="">
         <div class="wrapper">
-            <div class="d-flex justify-content-center align-items-center ">
+            <div class="d-flex justify-content-center align-items-center">
                 <div class="container">
                     <br><br><br><br>
                     <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
-                        <div class="col-20 mx-auto">
+                        <div class="col-20 mx-auto" style="width: 700px;">
                             <div class="card mt-auto border-primary my-5 border-2 rounded">
                                 <div class="card-body">
                                     <div class="p-4 rounded">
