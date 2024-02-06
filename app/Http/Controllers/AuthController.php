@@ -13,14 +13,14 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('Auth.index', [
+        return view('pages.Auth.index', [
             'title' => 'Login'
         ]);
     }
 
     public function registrasi()
     {
-        return view('Auth.Registration.index', [
+        return view('pages.Auth.Registration.index', [
             'title' => 'Registrasi'
         ]);
     }
