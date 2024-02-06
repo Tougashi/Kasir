@@ -8,19 +8,25 @@
     <div class="sidebar-menu mt-4">
         <ul class="metismenu" id="menu">
           <li>
-            <a href="#" class="">
+            <a href="/admin/dashboard" class="">
               <div class="parent-icon"><i class='bi bi-house-door'></i></div>
               <div class="menu-title">Dashboard</div>
             </a>
           </li>
-          <li>
-            <a href="#" class="has-arrow">
+          <li class="mm-active">
+            <a href="#" class="has-arrow" aria-expanded="true">
               <div class="parent-icon"><i class="bx bx-category"></i></div>
               <div class="menu-title">Data Barang</div>
             </a>
             <ul>
               <li><a href=""><i class="bx bx-right-arrow-alt"></i>Email</a></li>
             </ul>
+          </li>
+          <li>
+            <a href="/admin/products/list" class="">
+              <div class="parent-icon"><i class="bi bi-list-columns"></i></div>
+              <div class="menu-title">List Produk</div>
+            </a>
           </li>
         </ul>
       </div>
@@ -37,12 +43,12 @@
             });
         });
 
-       
+
         $(document).ready(function () {
-        $('#menu').metisMenu();
+            $('#menu').metisMenu();
         });
 
-        
+
 
 
     </script>

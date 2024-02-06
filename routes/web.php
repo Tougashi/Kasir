@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardAdminController;
 
 /*
@@ -37,10 +39,18 @@ Route::middleware('auth')->group(function () {
         ]);
     })->name('preventCrossLevel');
 
+    Route::controller(UserController::class)->prefix('user')->group(function(){
+        Route::get('/info', 'show');
+    });
+
     Route::middleware('checkRole:Admin')->group(function () {
         Route::prefix('admin')->group(function(){
             Route::controller(DashboardAdminController::class)->group(function(){
                 Route::get('/dashboard', 'index');
+            });
+
+            Route::prefix('products')->controller(ProductController::class)->group(function(){
+                Route::get('/list', 'index');
             });
         });
     });
