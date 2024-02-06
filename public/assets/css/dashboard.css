@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap');
 
 
-.body {
-    font-family: 'Poppins';
+body {
+    /* font-family: 'Poppins'; */
+    overflow: hidden;
 }
 
+#sidebar{
+    min-height: 100vh;
+}
 
 .hr {
 }
@@ -31,11 +35,6 @@
 }
 
 
-/* .sidebar-menu {
-    border-right: 2px solid;
-    border-right-color: #007bff;
-} */
-
 .sidebar-title {
     font-family: 'Poppins';
 }
@@ -48,8 +47,59 @@
     color: #007bff;
 }
 
+li {
+    list-style-type: none;
+}
 
+ul {
+    list-style: none;
+}
 
+  .metismenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .metismenu li {
+    list-style-type: none;
+  }
+  
+  .metismenu a {
+    text-decoration: none;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .metismenu a:hover {
+    background-color:#007bff4c;
+    cursor: pointer;
+
+  }
+  
+  .metismenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+  }
+  
+  .metismenu .has-arrow::after {
+    content: '\25B6';
+    float: right;
+    transition: transform 0.3s ease;
+  }
+  
+  .metismenu .active ul {
+    display: block;
+  }
+  
+  .metismenu .has-arrow.active::after {
+    transform: rotate(90deg);
+  }
 
 @media screen and (max-width: 1100px) {
     .w-20p{
