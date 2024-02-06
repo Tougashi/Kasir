@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap');
+
+
+.body {
+    font-family: 'Poppins';
+}
+
+
+.hr {
+}
+
 .w-20p{
     width: 16%;
 }
@@ -20,6 +31,26 @@
 }
 
 
+/* .sidebar-menu {
+    border-right: 2px solid;
+    border-right-color: #007bff;
+} */
+
+.sidebar-title {
+    font-family: 'Poppins';
+}
+
+.navbar {
+    border-bottom: 2px solid #007bff;
+}
+
+.nav-link {
+    color: #007bff;
+}
+
+
+
+
 @media screen and (max-width: 1100px) {
     .w-20p{
         width: 20%;
@@ -40,3 +71,4 @@
         width: 100%;
     }
 }
+
