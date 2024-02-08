@@ -1,8 +1,5 @@
-<nav class="navbar navbar-dark navbar-expand-lg w-90p float-end bg-white">
+<nav class="navbar navbar-dark navbar-expand-lg w-80p float-end bg-white d-none d-lg-block">
     <div class="container">
-        <button class="navbar-toggler bg-primary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                 <li class="nav-item dropdown">
