@@ -19,69 +19,21 @@
                     <div class="menu-title">Dashboard</div>
                 </a>
             </li>
-            <li>
-                <a href="/admin/dashboard" class="">
-                    <div class="parent-icon"><i class='bi bi-house-door'></i></div>
-                    <div class="menu-title">Dashboard</div>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/dashboard" class="">
-                    <div class="parent-icon"><i class='bi bi-house-door'></i></div>
-                    <div class="menu-title">Dashboard</div>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/dashboard" class="">
-                    <div class="parent-icon"><i class='bi bi-house-door'></i></div>
-                    <div class="menu-title">Dashboard</div>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/dashboard" class="">
-                    <div class="parent-icon"><i class='bi bi-house-door'></i></div>
-                    <div class="menu-title">Dashboard</div>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/dashboard" class="">
-                    <div class="parent-icon"><i class='bi bi-house-door'></i></div>
-                    <div class="menu-title">Dashboard</div>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/dashboard" class="">
-                    <div class="parent-icon"><i class='bi bi-house-door'></i></div>
-                    <div class="menu-title">Dashboard</div>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/dashboard" class="">
-                    <div class="parent-icon"><i class='bi bi-house-door'></i></div>
-                    <div class="menu-title">Dashboard</div>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/dashboard" class="">
-                    <div class="parent-icon"><i class='bi bi-house-door'></i></div>
-                    <div class="menu-title">Dashboard</div>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/dashboard" class="">
-                    <div class="parent-icon"><i class='bi bi-house-door'></i></div>
-                    <div class="menu-title">Dashboard</div>
-                </a>
-            </li>
             <li class="">
                 <ul id="menu" class="metismenu d-block">
                     <li class="">
-                        <a class="has-arrow" href="#" aria-expanded="false">Data Produk</a>
+                        <a class="has-arrow" href="#" aria-expanded="false"><i class="bi bi-database-gear"></i> Data Produk</a>
                         <ul>
                             <li class="mm-show">
                                 <a href="/admin/products/list" class="">
-                                    <div class="parent-icon"><i class="bi bi-list-columns"></i></div>
-                                    <div class="menu-title">Lst Produk</div>
+                                    <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
+                                    <div class="menu-title">List Produk</div>
+                                </a>
+                            </li>
+                            <li class="mm-show">
+                                <a href="/admin/products/list" class="">
+                                    <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
+                                    <div class="menu-title">Tambah Produk</div>
                                 </a>
                             </li>
                         </ul>
@@ -106,49 +58,15 @@
         <ul class="metismenu" id="menuIconOnly">
             <li>
                 <a href="/admin/dashboard" class="" data-toggle="tooltip" title="Dashboard">
-                    <div class="parent-icon p-1"><i class='bi bi-house-door'></i></div>
+                    <div class="parent-icon"><i class='bi bi-house-door'></i></div>
                 </a>
             </li>
-            <li class="">
-                <a href="/admin/dashboard" class="" data-toggle="tooltip" title="Dashboard">
-                    <div class="parent-icon p-1"><i class="bi bi-list-columns"></i></div>
+            <li>
+                <a href="/admin/products/list" class="" data-toggle="tooltip" title="List Produk">
+                    <div class="parent-icon"><i class ="bi bi-list-columns"></i></div>
                 </a>
             </li>
-            <li class="">
-                <a href="/admin/dashboard" class="" data-toggle="tooltip" title="Dashboard">
-                    <div class="parent-icon p-1"><i class="bi bi-list-columns"></i></div>
-                </a>
-            </li>
-            <li class="">
-                <a href="/admin/dashboard" class="" data-toggle="tooltip" title="Dashboard">
-                    <div class="parent-icon p-1"><i class="bi bi-list-columns"></i></div>
-                </a>
-            </li>
-            <li class="">
-                <a href="/admin/dashboard" class="" data-toggle="tooltip" title="Dashboard">
-                    <div class="parent-icon p-1"><i class="bi bi-list-columns"></i></div>
-                </a>
-            </li>
-            <li class="">
-                <a href="/admin/dashboard" class="" data-toggle="tooltip" title="Dashboard">
-                    <div class="parent-icon p-1"><i class="bi bi-list-columns"></i></div>
-                </a>
-            </li>
-            <li class="">
-                <a href="/admin/dashboard" class="" data-toggle="tooltip" title="Dashboard">
-                    <div class="parent-icon p-1"><i class="bi bi-list-columns"></i></div>
-                </a>
-            </li>
-            <li class="">
-                <a href="/admin/dashboard" class="" data-toggle="tooltip" title="Dashboard">
-                    <div class="parent-icon p-1"><i class="bi bi-list-columns"></i></div>
-                </a>
-            </li>
-            <li class="">
-                <a href="/admin/dashboard" class="" data-toggle="tooltip" title="Dashboard">
-                    <div class="parent-icon p-1"><i class="bi bi-list-columns"></i></div>
-                </a>
-            </li>
+
         </ul>
     </div>
 </div>
