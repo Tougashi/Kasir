@@ -214,12 +214,8 @@
 @endsection
 @push('scripts')
 <script>
-    $().ready(function() {
-        $('#dataTable').DataTable({
-            responsive: true,
-            searching: true,
-            autoWidth: false
-        });
+    $().ready(function(){
+        initTable('#dataTable');
     });
 </script>
 @endpush

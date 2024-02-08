@@ -28,7 +28,7 @@
     <script src="{{ asset('/assets/js/bootstrap.bundle.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
-    <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/dataTables.min.css')}}">
     <script type="text/javascript" src="{{asset('assets/plugins/datatable/js/dataTables.min.js')}}"></script>
 </head>
 
@@ -38,7 +38,7 @@
     <div class="w-80p d-flex float-end container py-3 d-flex">
         <div class="w-100 py-3">
             <h3 class="ps-lg-0 ps-4" id="cardWrapperTitle">{{ $title }}</h3>
-            <div id="content" class="pt-2 pb-5 w-100">
+            <div id="content" class="mt-2 pb-5 w-100 shadow">
                 @yield('content')
             </div>
         </div>
@@ -47,7 +47,18 @@
     <script>
         $(function(){
             $('[data-toggle="tooltip"]').tooltip();
+            // $('.dtr-control').addClass('bi bi-plus-circle-fill');
         });
+
+        function initTable(tableId){
+            let dt = $(`${tableId}`).DataTable({
+                responsive: true,
+                searching: true,
+                autoWidth: false,
+            });
+        }
+
+
     </script>
 </body>
 
