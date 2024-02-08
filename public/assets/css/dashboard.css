@@ -63,8 +63,11 @@ body{
 }
 
 #menuIconOnly li a {
-    padding: 10px 0 10px 10px;
+    padding: 10px 10px 10px 20px;
     font-size: 15px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: flex;
 }
 
 
@@ -84,6 +87,7 @@ body{
   }
 
   .metismenu a {
+    margin-left: -25px;
     text-decoration: none;
     color: #007bff;
     display: flex;
@@ -96,7 +100,11 @@ body{
   .metismenu a:hover {
     background-color:#007bff4c;
     cursor: pointer;
+  }
 
+  .metismenu-active{
+    background-color:#007bff4c;
+    cursor: pointer;
   }
 
   .metismenu ul {

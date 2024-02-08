@@ -12,20 +12,20 @@
     <h5 class="sidebar-title text-white text-center mb-3 menu bg-primary rounded">MENU</h5>
     <hr class="text-primary">
     <div class="sidebar-menu mt-4 mb-5">
-        <ul class="" id="menu">
-            <li>
-                <a href="/admin/dashboard" class="">
+        <ul class="">
+            <li class="metismenu">
+                <a href="/admin/dashboard" class="{{$title == 'Dashboard' ? 'metismenu-active' : ''}}">
                     <div class="parent-icon"><i class='bi bi-house-door'></i></div>
                     <div class="menu-title">Dashboard</div>
                 </a>
             </li>
             <li class="">
-                <ul id="menu" class="metismenu d-block">
-                    <li class="">
-                        <a class="has-arrow" href="#" aria-expanded="false"><i class="bi bi-database-gear"></i> Data Produk</a>
+                <ul class="metismenu d-block" id="menu" >
+                    <li class="{{$title == 'Daftar Produk' || $title == 'Tambah Produk' ? 'mm-active' : ''}}">
+                        <a class="has-arrow {{$title == 'Daftar Produk' ? 'metismenu-active' : ''}}" href="#" aria-expanded=""><i class="bi bi-database-gear"></i> Data Produk</a>
                         <ul>
                             <li class="mm-show">
-                                <a href="/admin/products/list" class="">
+                                <a href="/admin/products/list" class="{{$title == 'Daftar Produk' ? 'metismenu-active' : ''}}">
                                     <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
                                     <div class="menu-title">List Produk</div>
                                 </a>
@@ -56,13 +56,13 @@
     </div>
     <div class="sidebar-menu d-flex justify-content-center">
         <ul class="metismenu" id="menuIconOnly">
-            <li>
-                <a href="/admin/dashboard" class="" data-toggle="tooltip" title="Dashboard">
+            <li class="">
+                <a href="/admin/dashboard" class="{{$title == 'Dashboard' ? 'metismenu-active' : ''}}" data-toggle="tooltip" title="Dashboard">
                     <div class="parent-icon"><i class='bi bi-house-door'></i></div>
                 </a>
             </li>
             <li>
-                <a href="/admin/products/list" class="" data-toggle="tooltip" title="List Produk">
+                <a href="/admin/products/list" class="{{$title == 'Daftar Produk' ? 'metismenu-active' : ''}}" data-toggle="tooltip" title="Daftar Produk">
                     <div class="parent-icon"><i class ="bi bi-list-columns"></i></div>
                 </a>
             </li>
@@ -72,14 +72,15 @@
 </div>
 
 @push('scripts')
-    <script>
+<script>
+        $().ready(function() {
+            $('.metismenu').metisMenu();
+        });
+
         let resizeScreen = () => {
             return $(window).width();
         }
 
-        $().ready(function() {
-            $('#menu').metisMenu();
-        });
 
         $(window).on('resize', function(){
             let screenWidth = resizeScreen();

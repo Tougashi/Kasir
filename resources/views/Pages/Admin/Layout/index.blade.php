@@ -38,7 +38,7 @@
     <div class="w-80p d-flex float-end container py-3 d-flex">
         <div class="w-100 py-3">
             <h3 class="ps-lg-0 ps-4" id="cardWrapperTitle">{{ $title }}</h3>
-            <div id="content" class="mt-2 pb-5 w-100 shadow">
+            <div id="content" class="mt-2 pb-5 w-100">
                 @yield('content')
             </div>
         </div>

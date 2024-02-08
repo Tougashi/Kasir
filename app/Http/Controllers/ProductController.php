@@ -14,7 +14,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('Pages.Admin.Products.list', [
-            'title' => 'List Produk'
+            'title' => 'Daftar Produk'
         ]);
     }
 
