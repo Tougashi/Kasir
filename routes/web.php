@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardAdminController;
 
 /*
@@ -18,19 +19,23 @@ use App\Http\Controllers\DashboardAdminController;
 */
 
 // Route Authentication
-Route::middleware([])->group(function(){
+Route::middleware(['guest'])->group(function(){
     Route::controller(AuthController::class)->group(function(){
         Route::get('/', 'login')->name('login');
         Route::get('/login', 'login')->name('login');
         Route::post('/authentication', 'auth')->name('auth');
         Route::get('/registrasi', 'registrasi')->name('registrasi');
         Route::post('/registrasi', 'signup')->name('signup');
-        Route::get('/logout', 'logout')->name('logout');
     });
 });
 
 
 Route::middleware('auth')->group(function () {
+
+    Route::controller(AuthController::class)->group(function(){
+        Route::get('/logout', 'logout')->name('logout');
+    });
+
     Route::get('/not-allowed-method', function(){
         return view('errors.minimal2', [
             'title' => 'Bad Request',
@@ -45,6 +50,12 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('checkRole:Admin')->group(function () {
         Route::prefix('admin')->group(function(){
+        
+            Route::controller(UserController::class)->group(function(){
+                Route::get('/account', 'index');
+                Route::get('/account/add', 'create');
+                Route::post('/account/add/store', 'store')->name('account.store');
+            });
             Route::controller(DashboardAdminController::class)->group(function(){
                 Route::get('/dashboard', 'index');
             });

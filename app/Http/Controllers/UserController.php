@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -21,7 +22,10 @@ class UserController extends Controller
 
     public function index()
     {
-        //
+        return view('Pages.Admin.Page.Account.index', [
+            'title' => 'Daftar Akun',
+            'data' => User::all()
+        ]);
     }
 
     /**
@@ -29,7 +33,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('Pages.Admin.Page.Account.add', [
+            'title' => 'Buat Akun',
+            'data' => User::all()
+        ]);
     }
 
     /**
@@ -37,7 +44,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data['password'] = bcrypt($request->password);
+
+        $validator = Validator::make($data, [
+            'email' => 'required|email:rfc',
+            'username' => 'required|unique:users',
+            'password' => 'required|customPassword', 
+        ]);
+
+        if ($validator->fails()) {
+            return back()->with('errors', $validator->errors());
+        }
+
+        $validated = $validator->validated();
+
+        User::create($validated);
+
+        return redirect(url()->current())->with('success', 'Data User berhasil diperbarui');
     }
 
     /**
