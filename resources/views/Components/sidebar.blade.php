@@ -62,6 +62,18 @@
                     </li>
                 </ul>
             </li>
+            <li class="metismenu">
+                <a href="/admin/transaction" class="{{$title == 'Akun' ? 'metismenu-active' : ''}}">
+                    <div class="parent-icon"><i class='bi bi-credit-card-2-front'></i></div>
+                    <div class="menu-title">Transaksi</div>
+                </a>
+            </li>
+            <li class="metismenu">
+                <a href="/admin/account" class="{{$title == 'Akun' ? 'metismenu-active' : ''}}">
+                    <div class="parent-icon"><i class='bi bi-people'></i></div>
+                    <div class="menu-title">Akun</div>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

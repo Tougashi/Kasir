@@ -43,11 +43,11 @@ class AuthController extends Controller
             }elseif($user->roles == 'Guest') {
                 return redirect('/beranda')->with(['success', 'Berhasil Login Pelanggan']);
             }else{
-                return redirect('/')->with(['?']);
+                return redirect('/')->with(['Gagal untuk login']);
             }
         }
 
-        return back()->with('username' , 'Masukkan Username atau Password dengan benar');
+        return back()->with('username' , 'Masukkan Username atau Password dengan benar')->withInput();
     }
 
     public function signup(Request $request)
