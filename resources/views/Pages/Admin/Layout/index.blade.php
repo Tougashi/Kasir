@@ -30,6 +30,10 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
     <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/dataTables.min.css')}}">
     <script type="text/javascript" src="{{asset('assets/plugins/datatable/js/dataTables.min.js')}}"></script>
+
+    {{-- Sweeetalert --}}
+    <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert/css/sweetalert2.min.css')}}">
+    <script src="{{asset('assets/plugins/sweetalert/js/sweetalert2.all.min.js')}}"></script>
 </head>
 
 <body>
@@ -43,11 +47,11 @@
             </div>
         </div>
     </div>
-    @stack('scripts')
     <script>
         $(function(){
             $('[data-toggle="tooltip"]').tooltip();
-            // $('.dtr-control').addClass('bi bi-plus-circle-fill');
+            // confirmation();
+
         });
 
         function initTable(tableId){
@@ -58,8 +62,73 @@
             });
         }
 
+        const successButton = 'btn btn-success';
+        const infoButton = 'btn btn-info';
+        const errorButton = 'btn btn-danger';
+        const timeoutAlert = 2000;
+
+        const success = (message) => {
+            Swal.fire({
+                title: "Good job!",
+                text: message,
+                icon: "success",
+                timer: timeoutAlert,
+                customClass: {
+                    confirmButton: successButton
+                },
+            });
+        }
+
+        const info = (message) => {
+            Swal.fire({
+                title: "Good job!",
+                text: message,
+                icon: "success",
+                timer: timeoutAlert,
+                customClass: {
+                    confirmButton: infoButton
+                }
+            });
+        }
+
+        const confirmation = () => {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    ajaxDeleteData('dsf');
+                }else{
+                    info('Data anda tetap disimpan !');
+                }
+            });
+        }
+
+
+        const error = (message) => {
+            Swal.fire({
+                title: "Terdapat Masalah",
+                text: message,
+                icon: "error",
+                customClass: {
+                    confirmButton: errorButton
+                }
+            });
+        }
+
+
+        const ajaxDeleteData = (itemId) => {
+            let url = '{{url()->current()}}'+'/delete/'+itemId;
+            info(url);
+        }
 
     </script>
+    @stack('scripts')
 </body>
 
 </html>

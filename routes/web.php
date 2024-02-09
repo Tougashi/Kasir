@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardAdminController;
 
 /*
@@ -57,6 +58,8 @@ Route::middleware('auth')->group(function () {
 
                 Route::prefix('categories')->controller(CategoryController::class)->group(function(){
                     Route::get('/', 'index');
+                    Route::get('/create', 'create');
+                    Route::post('/create/store', 'store');
                 });
             });
         });

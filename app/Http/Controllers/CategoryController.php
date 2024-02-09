@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -13,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('Pages.Admin.Page.Categories.index', [
-            'title' => 'Kategori Produk'
+            'title' => 'Daftar Kategori'
         ]);
     }
 
@@ -22,7 +25,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('Pages.Admin.Page.Categories.create', [
+            'title' => 'Tambah Kategori'
+        ]);
     }
 
     /**
@@ -30,7 +35,27 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->flashOnly(['name', 'description']);
+        $data = $request->all();
+        $data['slug'] = Str::slug(strtolower($request->name));
+
+        $validate = Validator::make($data, [
+            'name' => 'required',
+            'slug' => 'required',
+            'description' => 'required'
+        ]);
+
+        if($validate->fails()){
+            return back()->with('errors', $validate->errors());
+        }
+
+        $validated = $validate->validated();
+        try{
+            Category::create($validated);
+            return back()->with('success', 'Kategori baru berhasil ditambahkan');
+        }catch(\Exception $e){
+            return back()->with('errors', $e->getMessage());
+        }
     }
 
     /**
