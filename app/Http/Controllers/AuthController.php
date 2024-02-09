@@ -27,6 +27,8 @@ class AuthController extends Controller
 
     public function auth(Request $request): RedirectResponse
     {
+
+        $request->flashOnly('username');
         $credentials = [
             'username' => $request->username,
             'password' => $request->password
@@ -45,7 +47,7 @@ class AuthController extends Controller
             }
         }
 
-        return back()->with(['gagal']);
+        return back()->with('username' , 'Masukkan Username atau Password dengan benar');
     }
 
     public function signup(Request $request)

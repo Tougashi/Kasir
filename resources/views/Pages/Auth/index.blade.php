@@ -40,7 +40,10 @@
                                                 @csrf
                                                 <div class="col-12">
                                                     <label for="Username" class="form-label">Nama Pengguna</label>
-                                                    <input type="text" class="form-control  border border-primary" id="username" placeholder="Masukan Nama Pengguna" required name="username">
+                                                    <input type="text" class="form-control {{session('username') ? 'is-invalid' : 'border-primary'}}" id="username" placeholder="Masukan Nama Pengguna" required name="username" value="{{old('username')}}">
+                                                    @if(session('username'))
+                                                        <div class="text-danger">{{session('username')}}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputChoosePassword" class="form-label">Kata Sandi</label>

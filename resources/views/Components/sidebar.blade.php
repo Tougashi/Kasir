@@ -31,9 +31,15 @@
                                 </a>
                             </li>
                             <li class="mm-show">
-                                <a href="/admin/products/list" class="">
+                                <a href="/admin/products/create" class="">
                                     <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
                                     <div class="menu-title">Tambah Produk</div>
+                                </a>
+                            </li>
+                            <li class="mm-show">
+                                <a href="/admin/products/categories" class="">
+                                    <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
+                                    <div class="menu-title">Kategori Produk</div>
                                 </a>
                             </li>
                         </ul>
@@ -62,7 +68,7 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/products/list" class="{{$title == 'Daftar Produk' ? 'metismenu-active' : ''}}" data-toggle="tooltip" title="Daftar Produk">
+                <a href="/admin/products/create" class="{{$title == 'Daftar Produk' ? 'metismenu-active' : ''}}" data-toggle="tooltip" title="Daftar Produk">
                     <div class="parent-icon"><i class ="bi bi-list-columns"></i></div>
                 </a>
             </li>

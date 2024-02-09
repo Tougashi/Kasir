@@ -49,8 +49,15 @@ Route::middleware('auth')->group(function () {
                 Route::get('/dashboard', 'index');
             });
 
-            Route::prefix('products')->controller(ProductController::class)->group(function(){
-                Route::get('/list', 'index');
+            Route::prefix('products')->group(function(){
+                Route::controller(ProductController::class)->group(function(){
+                    Route::get('/list', 'index');
+                    Route::get('/create', 'create');
+                });
+
+                Route::prefix('categories')->controller(CategoryController::class)->group(function(){
+                    Route::get('/', 'index');
+                });
             });
         });
     });
