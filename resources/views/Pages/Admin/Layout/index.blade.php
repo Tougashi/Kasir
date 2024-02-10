@@ -8,7 +8,8 @@
     <title>Kopsis | {{ $title }}</title>
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/logo.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/logo.png') }}">
-    <link href="{{ asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <meta name="csrf-token" content="{{csrf_token()}}"/>
+    <link href="{{ asset('/assets/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') }}"
         rel="stylesheet">
 
@@ -25,7 +26,7 @@
 
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <!-- Bootstrap JS -->
-    <script src="{{ asset('/assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/assets/plugins/bootstrap/js/bootstrap.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
     <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/dataTables.min.css')}}">
@@ -34,6 +35,7 @@
     {{-- Sweeetalert --}}
     <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert/css/sweetalert2.min.css')}}">
     <script src="{{asset('assets/plugins/sweetalert/js/sweetalert2.all.min.js')}}"></script>
+    <script src="{{asset('assets/js/sweetalert/script.js')}}"></script>
 </head>
 
 <body>
@@ -43,17 +45,17 @@
         <div class="w-100 py-1">
             <div class="d-flex align-items-center justify-content-between">
                 <h3 class="ps-4" id="cardWrapperTitle">{{ $title }}</h3>
-            </div>           
+            </div>
             <div id="content" class="mt-2 pb-5 w-100">
                 @yield('content')
             </div>
         </div>
     </div>
     <script>
+        const currentUrl = '{{url()->current()}}';
         $(function(){
             $('[data-toggle="tooltip"]').tooltip();
             // confirmation();
-
         });
 
         function initTable(tableId){
@@ -61,72 +63,52 @@
                 responsive: true,
                 searching: true,
                 autoWidth: false,
+                destroy: true,
             });
         }
 
-        const successButton = 'btn btn-success';
-        const infoButton = 'btn btn-info';
-        const errorButton = 'btn btn-danger';
-        const timeoutAlert = 2000;
-
-        const success = (message) => {
-            Swal.fire({
-                title: "Good job!",
-                text: message,
-                icon: "success",
-                timer: timeoutAlert,
-                customClass: {
-                    confirmButton: successButton
-                },
+        function refreshDatatable(data, column){
+            $('.dt').empty();
+            $('.dt').DataTable({
+                responsive: true,
+                searching: true,
+                autoWidth: false,
+                destroy: true,
+                data: data,
+                columns: column,
             });
         }
-
-        const info = (message) => {
-            Swal.fire({
-                title: "Good job!",
-                text: message,
-                icon: "success",
-                timer: timeoutAlert,
-                customClass: {
-                    confirmButton: infoButton
-                }
-            });
-        }
-
-        const confirmation = () => {
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    ajaxDeleteData('dsf');
-                }else{
-                    info('Data anda tetap disimpan !');
-                }
-            });
-        }
-
-
-        const error = (message) => {
-            Swal.fire({
-                title: "Terdapat Masalah",
-                text: message,
-                icon: "error",
-                customClass: {
-                    confirmButton: errorButton
-                }
-            });
-        }
-
 
         const ajaxDeleteData = (itemId) => {
             let url = '{{url()->current()}}'+'/delete/'+itemId;
-            info(url);
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(response){
+                    successAlert(response.message);
+                    refreshData();
+                },
+                error: function(error,xhr){
+                    errorAlert(errror.message);
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
+        function edit(slug){
+            let url = '{{url()->current()}}'+'/edit/'+slug;
+            info('Mohon tunggu sebentar..');
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(response){
+                    showEditModal(response.data);
+                    Swal.close();
+                },
+                error: function(error, xhr){
+                    errorAlert(error.message);
+                }
+           });
         }
 
     </script>

@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('checkRole:Admin')->group(function () {
         Route::prefix('admin')->group(function(){
-        
+
             Route::controller(UserController::class)->group(function(){
                 Route::get('/account', 'index');
                 Route::get('/account/add', 'create');
@@ -69,6 +69,9 @@ Route::middleware('auth')->group(function () {
                 Route::prefix('categories')->controller(CategoryController::class)->group(function(){
                     Route::get('/', 'index');
                     Route::get('/create', 'create');
+                    Route::get('/edit/{slug}', 'edit');
+                    Route::get('/delete/{slug}', 'destroy');
+                    Route::post('/update/{slug}', 'update');
                     Route::post('/create/store', 'store');
                 });
             });

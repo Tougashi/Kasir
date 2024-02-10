@@ -1,8 +1,8 @@
 @extends('Pages.Admin.Layout.index')
 @section('content')
-<x-add-button/>
 <div class="card">
     <div class="py-3 px-4">
+        <x-add-button/>
         <table id="dataTable" class="table responsive">
             <thead>
                 <tr>
@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $item)  
+                @foreach ($data as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->username }}</td>
