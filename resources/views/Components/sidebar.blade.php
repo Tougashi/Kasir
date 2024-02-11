@@ -22,10 +22,10 @@
             <li class="">
                 <ul class="metismenu d-block" id="menu" >
                     <li class="{{$title == 'Daftar Produk' || $title == 'Tambah Produk' ? 'mm-active' : ''}}">
-                        <a class="has-arrow {{$title == 'Daftar Produk' || $title == 'Tambah Produk' ? 'metismenu-active' : ''}}" href="#" aria-expanded=""><i class="bi bi-database-gear"></i> Data Produk</a>
+                        <a class="has-arrow {{$title == 'Daftar Produk' || $title == 'Tambah Produk' ? 'metismenu-active' : ''}}" href="javascript:void(0)" aria-expanded=""><i class="bi bi-database-gear"></i> Data Produk</a>
                         <ul>
                             <li class="mm-show">
-                                <a href="/admin/products/list" class="{{$title == 'Daftar Produk' ? 'metismenu-active' : ''}}">
+                                <a href="/admin/products" class="{{$title == 'Daftar Produk' ? 'metismenu-active' : ''}}">
                                     <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
                                     <div class="menu-title">List Produk</div>
                                 </a>
@@ -44,7 +44,7 @@
             <li class="">
                 <ul class="metismenu d-block" id="menu" >
                     <li class="{{$title == 'Daftar Kategori' || $title == 'Tambah Kategori' ? 'mm-active' : ''}}">
-                        <a class="has-arrow {{$title == 'Kategori Produk' ? 'metismenu-active' : ''}}" href="#" aria-expanded=""><i class="bi bi-tags"></i> Kategori Produk</a>
+                        <a class="has-arrow {{$title == 'Kategori Produk' ? 'metismenu-active' : ''}}" href="javascript:void(0)" aria-expanded=""><i class="bi bi-tags"></i> Kategori Produk</a>
                         <ul>
                             <li class="mm-show">
                                 <a href="/admin/products/categories" class="{{$title == 'Daftar Kategori' ? 'metismenu-active' : ''}}">

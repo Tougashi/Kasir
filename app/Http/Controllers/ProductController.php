@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Supplier;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -17,19 +18,23 @@ class ProductController extends Controller
     {
         $products = Product::with('category')->get();
         if($request->ajax()){
-            foreach($products as $product){
-                $productArr[] = [
-                    'name' => $product->name,
-                    'categoryId' => $product->category->name,
-                    'stock' => $product->stock,
-                    'price' => $product->price,
-                    'expiredDate' => Carbon::parse($product->expiredDate)->format('d F Y'),
-                ];
+            if(isset($produts[0])){
+                foreach($products as $product){
+                    $productArr[] = [
+                        'name' => $product->name,
+                        'categoryId' => $product->category->name,
+                        'stock' => $product->stock,
+                        'price' => $product->price,
+                        'expiredDate' => Carbon::parse($product->expiredDate)->format('d F Y'),
+                    ];
                 }
+            }else{
+                $productArr = null;
+            }
         }else{
             return view('Pages.Admin.Products.list', [
                 'title' => 'Daftar Produk',
-                'products' => $products
+                'products' => $products,
             ]);
         }
     }
@@ -41,7 +46,8 @@ class ProductController extends Controller
     {
         return view('Pages.Admin.Products.create', [
             'title' => 'Tambah Produk',
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'suppliers' => Supplier::all(),
         ]);
     }
 

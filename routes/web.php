@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
 
             Route::prefix('products')->group(function(){
                 Route::controller(ProductController::class)->group(function(){
-                    Route::get('/list', 'index');
+                    Route::get('/', 'index');
                     Route::get('/create', 'create');
                 });
 
