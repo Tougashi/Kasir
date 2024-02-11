@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DashboardAdminController;
 
 /*
@@ -68,12 +69,21 @@ Route::middleware('auth')->group(function () {
 
                 Route::prefix('categories')->controller(CategoryController::class)->group(function(){
                     Route::get('/', 'index');
-                    Route::get('/create', 'create');
+                    Route::get('/add', 'create');
                     Route::get('/edit/{slug}', 'edit');
                     Route::get('/delete/{slug}', 'destroy');
                     Route::post('/update/{slug}', 'update');
                     Route::post('/create/store', 'store');
                 });
+            });
+
+            Route::prefix('suppliers')->controller(SupplierController::class)->group(function(){
+                Route::get('/', 'index');
+                Route::get('/add', 'create');
+                Route::get('/edit/{code}', 'edit');
+                Route::post('/add/store', 'store');
+                Route::post('/update', 'update');
+                Route::get('/delete/{code}', 'destroy');
             });
         });
     });

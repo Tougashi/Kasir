@@ -8,10 +8,12 @@ function refreshData() {
         url: currentUrl,
         method: "GET",
         success: function (response) {
+            // console.log(response.data);
             reinitDatatable(response.data);
         },
         error: function (error, xhr) {
             errorAlert(error.message);
+            console.log(xhr.responseText);
         },
     });
 }

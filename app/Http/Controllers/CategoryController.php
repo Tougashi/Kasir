@@ -17,14 +17,19 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories = Category::all();
-        foreach($categories as $item){
-            $categoriesArr[] = [
-                'name' => $item->name,
-                'slug' => $item->slug,
-                'description' => $item->description,
-                'created_at' => Carbon::parse($item->created_at)->format('d F Y H:i')
-            ];
+        if(isset($categories[0])){
+            foreach($categories as $item){
+                $categoriesArr[] = [
+                    'name' => $item->name,
+                    'slug' => $item->slug,
+                    'description' => $item->description,
+                    'created_at' => Carbon::parse($item->created_at)->format('d F Y H:i')
+                ];
+            }
+        }else{
+            $categoriesArr = null;
         }
+        
         if($request->ajax()){
             return response()->json(['data' => $categoriesArr]);
         }else{

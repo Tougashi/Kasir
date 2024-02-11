@@ -3,20 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Validator;
+use Illuminate\Support\Carbon;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('Pages.Admin.Products.list', [
-            'title' => 'Daftar Produk'
-        ]);
+        $products = Product::with('category')->get();
+        if($request->ajax()){
+            foreach($products as $product){
+                $productArr[] = [
+                    'name' => $product->name,
+                    'categoryId' => $product->category->name,
+                    'stock' => $product->stock,
+                    'price' => $product->price,
+                    'expiredDate' => Carbon::parse($product->expiredDate)->format('d F Y'),
+                ];
+                }
+        }else{
+            return view('Pages.Admin.Products.list', [
+                'title' => 'Daftar Produk',
+                'products' => $products
+            ]);
+        }
     }
 
     /**
@@ -25,7 +40,8 @@ class ProductController extends Controller
     public function create()
     {
         return view('Pages.Admin.Products.create', [
-            'title' => 'Tambah Produk'
+            'title' => 'Tambah Produk',
+            'categories' => Category::all()
         ]);
     }
 
