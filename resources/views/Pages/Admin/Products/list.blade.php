@@ -165,6 +165,9 @@
                     data: "price",
                 },
                 {
+                    data: "expiredDate",
+                },
+                {
                     data: null,
                     render: function(data, type, row){
                         return `

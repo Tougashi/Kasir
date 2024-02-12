@@ -73,6 +73,8 @@ Route::middleware('auth')->group(function () {
                     Route::post('/add/store', 'store');
                     Route::post('/update/{code}', 'update');
                     Route::get('/delete/{code}', 'destroy');
+
+                    Route::get('/stock-in', 'stockIn');
                 });
 
                 Route::prefix('categories')->controller(CategoryController::class)->group(function(){

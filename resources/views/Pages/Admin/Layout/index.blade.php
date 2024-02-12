@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert/css/sweetalert2.min.css')}}">
     <script src="{{asset('assets/plugins/sweetalert/js/sweetalert2.all.min.js')}}"></script>
     <script src="{{asset('assets/js/sweetalert/script.js')}}"></script>
+
+    @yield('plugins')
 </head>
 
 <body>
@@ -55,7 +57,6 @@
         const currentUrl = '{{url()->current()}}';
         $(function(){
             $('[data-toggle="tooltip"]').tooltip();
-            // confirmation();
         });
 
         function initTable(tableId){

@@ -134,4 +134,11 @@ class ProductController extends Controller
             abort(400);
         }
     }
+
+
+    public function stockIn(){
+        return view('Pages.Admin.Products.stock-in', [
+            'title' => 'Stock-in Produk',
+        ]);
+    }
 }

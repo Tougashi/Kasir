@@ -21,7 +21,7 @@
             </li>
             <li class="">
                 <ul class="metismenu d-block" id="menu" >
-                    <li class="{{$title == 'Daftar Produk' || $title == 'Tambah Produk' ? 'mm-active' : ''}}">
+                    <li class="{{$title == 'Daftar Produk' || $title == 'Tambah Produk' || $title == 'Stock-in Produk' ? 'mm-active' : ''}}">
                         <a class="has-arrow {{$title == 'Daftar Produk' || $title == 'Tambah Produk' ? 'metismenu-active' : ''}}" href="javascript:void(0)" aria-expanded=""><i class="bi bi-database-gear"></i> Data Produk</a>
                         <ul>
                             <li class="mm-show">
@@ -36,15 +36,21 @@
                                     <div class="menu-title">Tambah Produk</div>
                                 </a>
                             </li>
+                            <li class="mm-show">
+                                <a href="/admin/products/stock-in" class="{{$title == 'Stock-in Produk' ? 'metismenu-active' : ''}}">
+                                    <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
+                                    <div class="menu-title">Stock-in Produk</div>
+                                </a>
+                            </li>
 
                         </ul>
                     </li>
                 </ul>
             </li>
             <li class="">
-                <ul class="metismenu d-block" id="menu" >
+                <ul class="metismenu d-block" id="menu">
                     <li class="{{$title == 'Daftar Kategori' || $title == 'Tambah Kategori' ? 'mm-active' : ''}}">
-                        <a class="has-arrow {{$title == 'Kategori Produk' ? 'metismenu-active' : ''}}" href="javascript:void(0)" aria-expanded=""><i class="bi bi-tags"></i> Kategori Produk</a>
+                        <a class="has-arrow {{$title == 'Daftar Kategori' || $title == 'Tambah Kategori' ? 'metismenu-active' : ''}}" href="javascript:void(0)" aria-expanded=""><i class="bi bi-tags"></i> Kategori Produk</a>
                         <ul>
                             <li class="mm-show">
                                 <a href="/admin/products/categories" class="{{$title == 'Daftar Kategori' ? 'metismenu-active' : ''}}">

@@ -3,7 +3,9 @@
     <div class="card pt-3 px-3 pb-4">
         <div class="container">
             @if ($errors->any())
-                {{ $errors }}
+                <script>
+                    errorAlert();
+                </script>
             @endif
             <form action="{{url()->current().'/store'}}" method="POST" class="row">
                 @csrf
@@ -86,7 +88,7 @@
                         <a href="/admin/products" class="btn btn-secondary w-100">Kembali</a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-flex ms-auto order-lg-2 order-md-2 order-1">
-                        <button type="submit" class="btn btn-primary w-100">Simpan</button>
+                        <button type="submit" onclick="info('Mohon tunggu sebentar...')" class="btn btn-primary w-100">Simpan</button>
                     </div>
                 </div>
             </form>
