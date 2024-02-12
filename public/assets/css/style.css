@@ -25,4 +25,14 @@
      font-style: bold;
 }
 
+.btn-danger:hover {
+     color: #fff;
+     background-color: #bb2d3b;
+     border-color: #b02a37;
+}
+.btn-primary:hover {
+     color: #fff;
+     background-color: #0b5ed7;
+     border-color: #0a58ca;
+}
 

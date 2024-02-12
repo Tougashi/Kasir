@@ -78,7 +78,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user = User::where('id', $this->userId())->first();
-        return view('Pages.Admin.Page.Account.show', [
+        return view('Pages.Admin.Page.Account.profile', [
             'title' => 'Info Akun',
             'user' => $user
         ]);
@@ -87,9 +87,14 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $user, string $id)
     {
-        //
+        $user = User::find(decrypt($id));
+        $user = User::find(decrypt($id));
+        return view('Pages.Admin.Page.Account.show', [
+            'title' => 'Info Akun',
+            'user' => $user
+        ]);
     }
 
     /**
@@ -100,11 +105,10 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
-        //
+        $user = User::find( decrypt($id) );
+        User::destroy(decrypt($id));
+        return back()->with('success','Telah Berhasil dihapus');
     }
 }
