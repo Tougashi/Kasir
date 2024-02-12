@@ -14,10 +14,20 @@ class ProductFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected $model = \App\Models\Product::class;
+
     public function definition(): array
     {
         return [
-            //
+            'code' => mt_rand(0000,9999),
+            'name' => fake()->sentence(),
+            'supplierId' => fake()->numberBetween(1, 3),
+            'categoryId' => '3',
+            'price' => '2000.00',
+            'stock' => 0,
+            'description' => fake()->word(),
+            'expiredDate' => fake()->date('Y-m-d')
         ];
     }
 }

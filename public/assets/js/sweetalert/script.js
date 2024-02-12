@@ -10,6 +10,7 @@ function refreshData() {
         success: function (response) {
             // console.log(response.data);
             reinitDatatable(response.data);
+            // console.log(response.data);
         },
         error: function (error, xhr) {
             errorAlert(error.message);

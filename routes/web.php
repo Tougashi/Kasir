@@ -64,7 +64,11 @@ Route::middleware('auth')->group(function () {
             Route::prefix('products')->group(function(){
                 Route::controller(ProductController::class)->group(function(){
                     Route::get('/', 'index');
-                    Route::get('/create', 'create');
+                    Route::get('/add', 'create');
+                    Route::get('/edit/{code}', 'edit');
+                    Route::post('/add/store', 'store');
+                    Route::post('/update/{code}', 'update');
+                    Route::get('/delete/{code}', 'destroy');
                 });
 
                 Route::prefix('categories')->controller(CategoryController::class)->group(function(){
@@ -73,7 +77,7 @@ Route::middleware('auth')->group(function () {
                     Route::get('/edit/{slug}', 'edit');
                     Route::get('/delete/{slug}', 'destroy');
                     Route::post('/update/{slug}', 'update');
-                    Route::post('/create/store', 'store');
+                    Route::post('/add/store', 'store');
                 });
             });
 

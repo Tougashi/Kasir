@@ -31,7 +31,7 @@
                                 </a>
                             </li>
                             <li class="mm-show">
-                                <a href="/admin/products/create" class="{{$title == 'Tambah Produk' ? 'metismenu-active' : ''}}">
+                                <a href="/admin/products/add" class="{{$title == 'Tambah Produk' ? 'metismenu-active' : ''}}">
                                     <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
                                     <div class="menu-title">Tambah Produk</div>
                                 </a>

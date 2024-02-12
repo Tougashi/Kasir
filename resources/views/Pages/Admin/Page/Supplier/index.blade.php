@@ -51,7 +51,6 @@
             initTable('.dt');
         });
 
-
         $('#editModal').on('hidden.bs.modal', function(){
             $('.modal-title, .modal-body').empty();
         });

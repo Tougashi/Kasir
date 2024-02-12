@@ -51,6 +51,7 @@
             initTable('.dt');
         });
 
+
         $('#editModal').on('hidden.bs.modal', function(){
             $('.modal-title, .modal-body').empty();
         });
@@ -79,6 +80,7 @@
         }
 
         function reinitDatatable(data){
+            console.log(data);
             refreshDatatable(data, [
                 {
                     data: null,

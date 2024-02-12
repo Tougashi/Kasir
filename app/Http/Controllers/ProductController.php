@@ -16,22 +16,24 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::with('category')->get();
-        if($request->ajax()){
-            if(isset($produts[0])){
-                foreach($products as $product){
+        $products = Product::with('category', 'supplier')->get();
+        if ($request->ajax()) {
+            if (isset($products[0])) {
+                foreach ($products as $product) {
                     $productArr[] = [
                         'name' => $product->name,
                         'categoryId' => $product->category->name,
                         'stock' => $product->stock,
                         'price' => $product->price,
+                        'code' => $product->code,
                         'expiredDate' => Carbon::parse($product->expiredDate)->format('d F Y'),
                     ];
                 }
-            }else{
+            } else {
                 $productArr = null;
             }
-        }else{
+            return response()->json(['data' => $products]);
+        } else {
             return view('Pages.Admin.Products.list', [
                 'title' => 'Daftar Produk',
                 'products' => $products,
@@ -56,6 +58,22 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = $request->validate([
+            'code' => 'required|unique:products',
+            'name' => 'required|unique:products',
+            'categoryId' => 'required',
+            'supplierId' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'expiredDate' => 'required',
+            'stock' => 'required'
+        ]);
+        try {
+            Product::create($validate);
+            return back()->with('success', 'Data Produk berhasil disimpan');
+        } catch (\Exception $e) {
+            return back()->withErrors($e->getMessage());
+        }
     }
 
     /**
@@ -69,24 +87,51 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($code, Request $request)
     {
-        //
+        if($request->ajax()){
+            $product['product'] = Product::where('code', $code)->first();
+            $product['categories'] = Category::all();
+            $product['suppliers'] = Supplier::all();
+            return response()->json(['data' => $product]);
+        }else{
+            abort(400);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update($code, Request $request)
     {
-        //
+        $validate = $request->validate([
+            'code' => 'required',
+            'name' => 'required',
+            'categoryId' => 'required',
+            'supplierId' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'expiredDate' => 'required',
+            'stock' => 'required'
+        ]);
+        try{
+            Product::where('code', $code)->update($validate);
+            return back()->with('success', 'Data berhasil diperbarui');
+        }catch(\Exception $e){
+            return back()->withErrors($e->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($code, Request $request)
     {
-        //
+        if($request->ajax()){
+            Product::where('code', $code)->delete();
+            return back()->with('success', 'Data Produk berhasil dihapus');
+        }else{
+            abort(400);
+        }
     }
 }
