@@ -26,7 +26,12 @@
                             {{ $item->roles }}
                         @endif
                     </td>
-                    <x-show-delete-button/>
+                    <td>
+                        <div class="d-flex order-actions">
+                            <a href="{{ route('users.edit', [encrypt($item->id)] ) }}" class="btn-primary"><i class='bi bi-eye-fill'></i></a>
+                            <a href="{{ route('users.destroy', ['user' => encrypt($item->id)] ) }}" class="btn-danger" data-confirm-delete="true"><i class='bi bi-trash-fill'></i></a>
+                        </div>    
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

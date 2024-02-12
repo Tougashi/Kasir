@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -42,27 +44,33 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $data = $request->all();
-        $data['password'] = bcrypt($request->password);
 
-        $validator = Validator::make($data, [
-            'email' => 'required|email:rfc',
-            'username' => 'required|unique:users',
-            'password' => 'required|customPassword', 
-        ]);
+     public function store(Request $request)
+     {
+         $validator = Validator::make($request->all(), [
+             'email' => 'required|email|unique:users|email:rfc',
+             'username' => 'required|unique:users',
+             'password' => 'required|customPassword',
+             'roles' => 'required',
+         ]);
+         if ($validator->fails()) {
+             return back()->withErrors($validator)->withInput();
+         }
 
-        if ($validator->fails()) {
-            return back()->with('errors', $validator->errors());
-        }
+         $user = new User();
+         $user->email = $request->email;
+         $user->remember_token = Str::random(60);
+         $user->email_verified_at = Carbon::now();
+         $user->username = $request->username;
+         $user->password = bcrypt($request->password);
+         $user->roles = $request->roles;
+         
+         $user->save();
+     
+         return back()->with('success', 'User berhasil ditambahkan.');
+     }
 
-        $validated = $validator->validated();
 
-        User::create($validated);
-
-        return redirect(url()->current())->with('success', 'Data User berhasil diperbarui');
-    }
 
     /**
      * Display the specified resource.
@@ -70,7 +78,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user = User::where('id', $this->userId())->first();
-        return view('Pages.Admin.Page.Account.show', [
+        return view('Pages.Admin.Page.Account.profile', [
             'title' => 'Info Akun',
             'user' => $user
         ]);
@@ -79,9 +87,14 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $user, string $id)
     {
-        //
+        $user = User::find(decrypt($id));
+        $user = User::find(decrypt($id));
+        return view('Pages.Admin.Page.Account.show', [
+            'title' => 'Info Akun',
+            'user' => $user
+        ]);
     }
 
     /**
@@ -92,11 +105,10 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
-        //
+        $user = User::find( decrypt($id) );
+        User::destroy(decrypt($id));
+        return back()->with('success','Telah Berhasil dihapus');
     }
 }

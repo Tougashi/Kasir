@@ -50,22 +50,6 @@ class AuthController extends Controller
         return back()->with('username' , 'Masukkan Username atau Password dengan benar')->withInput();
     }
 
-    public function signup(Request $request)
-    {
-        $request->validate([
-            'username' => 'required|max:255|unique:users',
-            'email' => 'required|email:dns|unique:users',
-            'password' => 'required|min:8|max:255'
-        ]);
-        $user = new user();
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->roles = 'Guest';
-        $user->save();
-        return back()->with('success', 'Berhasil Registrasi');
-    }
-
     public function logout()
     {
         Auth::logout();

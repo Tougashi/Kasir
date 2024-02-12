@@ -52,11 +52,15 @@ Route::middleware('auth')->group(function () {
     Route::middleware('checkRole:Admin')->group(function () {
         Route::prefix('admin')->group(function(){
 
-            Route::controller(UserController::class)->group(function(){
-                Route::get('/account', 'index');
-                Route::get('/account/add', 'create');
-                Route::post('/account/add/store', 'store')->name('account.store');
+            Route::controller(UserController::class)->prefix('account')->group(function(){
+                Route::get('/', 'index');
+                Route::get('/add', 'create');
+                Route::post('/add/store', 'store')->name('users.store');
+                Route::get('/edit/{user}', 'edit')->name('users.edit');
+                Route::put('/update/{user}', 'update')->name('users.update');
+                Route::get('/delete/{user}', 'destroy')->name('users.destroy');
             });
+
             Route::controller(DashboardAdminController::class)->group(function(){
                 Route::get('/dashboard', 'index');
             });
@@ -74,6 +78,7 @@ Route::middleware('auth')->group(function () {
                 Route::prefix('categories')->controller(CategoryController::class)->group(function(){
                     Route::get('/', 'index');
                     Route::get('/add', 'create');
+                    Route::post('/create/store', 'store');
                     Route::get('/edit/{slug}', 'edit');
                     Route::get('/delete/{slug}', 'destroy');
                     Route::post('/update/{slug}', 'update');

@@ -5,7 +5,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Halo, {{auth()->user()->username}}</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item {{$title == 'Info Akun' ? 'active' : ''}}" href="/user/info">Info Akun</a></li>
+                        <li><a class="dropdown-item {{$title == 'Info Akun' ? 'active' : ''}}" href="/user/info"></a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item text-danger" href="/logout">Log Out</a></li>
                     </ul>
