@@ -52,10 +52,10 @@ Route::middleware('auth')->group(function () {
     Route::middleware('checkRole:Admin')->group(function () {
         Route::prefix('admin')->group(function(){
 
-            Route::controller(UserController::class)->group(function(){
-                Route::get('/account', 'index');
-                Route::get('/account/add', 'create');
-                Route::post('/account/add/store', 'store')->name('account.store');
+            Route::controller(UserController::class)->prefix('account')->group(function(){
+                Route::get('/', 'index');
+                Route::get('/add', 'create');
+                Route::post('/add/store', 'store')->name('users.store');
             });
             Route::controller(DashboardAdminController::class)->group(function(){
                 Route::get('/dashboard', 'index');

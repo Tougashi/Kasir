@@ -20,7 +20,7 @@ function refreshData() {
 
 const successAlert = (message) => {
     Swal.fire({
-        title: "Good job!",
+        title: "Berhasil!",
         text: message,
         icon: "success",
         // timer: timeoutAlert,
@@ -50,7 +50,7 @@ const deleteModal = (id) => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Ya!",
     }).then((result) => {
         if (result.isConfirmed) {
             ajaxDeleteData(id);
