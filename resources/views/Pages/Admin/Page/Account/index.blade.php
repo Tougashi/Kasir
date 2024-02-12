@@ -4,7 +4,7 @@
     <div class="py-3 px-4">
         <x-add-button/>
         <table id="dataTable" class="table responsive">
-            <thead>
+            <thead class="bg-primary">
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
