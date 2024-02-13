@@ -127,6 +127,10 @@
             return $(window).width();
         }
 
+        $(function () {
+        $('#menu').metisMenu();
+        });
+
 
         $(window).on('resize', function(){
             let screenWidth = resizeScreen();

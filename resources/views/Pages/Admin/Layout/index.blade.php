@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
 
     <link href="{{ asset('assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/metismenu/css/metisMenu.scss') }}" rel="stylesheet" />
 
     <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
 
@@ -29,6 +30,8 @@
     <script src="{{ asset('/assets/plugins/bootstrap/js/bootstrap.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/index.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/util.js') }}"></script>
     <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/dataTables.min.css')}}">
     <script type="text/javascript" src="{{asset('assets/plugins/datatable/js/dataTables.min.js')}}"></script>
 
@@ -54,6 +57,10 @@
         </div>
     </div>
     <script>
+
+        $(function () {
+            $('#menu').metisMenu();
+        });
         const currentUrl = '{{url()->current()}}';
         $(function(){
             $('[data-toggle="tooltip"]').tooltip();

@@ -7,7 +7,7 @@
     <title>{{ $title }}</title>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo.png">
-	<link href="{{ asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/assets/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
