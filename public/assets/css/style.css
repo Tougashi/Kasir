@@ -36,3 +36,11 @@
      border-color: #0a58ca;
 }
 
+table th, table thead {
+     text-align: center !important;
+     background-color: #0b5ed7 !important; /* Ganti dengan warna latar belakang yang diinginkan */
+     color: white !important; 
+ }
+
+ 
+ 
