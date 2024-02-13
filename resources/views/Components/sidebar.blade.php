@@ -42,12 +42,6 @@
                                     <div class="menu-title">Stock-in Produk</div>
                                 </a>
                             </li>
-                            <li class="mm-show">
-                                <a href="/admin/products/expired" class="{{$title == 'Produk Kadaluarsa' ? 'metismenu-active' : ''}}">
-                                    <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
-                                    <div class="menu-title">Produk Kadaluarsa</div>
-                                </a>
-                            </li>
 
                         </ul>
                     </li>
@@ -85,6 +79,33 @@
                     <div class="parent-icon"><i class='bi bi-credit-card-2-front'></i></div>
                     <div class="menu-title">Transaksi</div>
                 </a>
+            </li>
+            <li class="">
+                <ul class="metismenu d-block" id="menu">
+                    <li class="{{$title == 'Riwayat Transaksi' || $title == 'Riwayat Barang Masuk' ? 'mm-active' : ''}}">
+                        <a class="has-arrow" href="javascript:void(0)" aria-expanded=""><i class="bi bi-clock"></i> Riwayat</a>
+                        <ul>
+                            <li class="mm-show">
+                                <a href="#" class="{{$title == 'Riwayat Transaksi' ? 'metismenu-active' : ''}}">
+                                    <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
+                                    <div class="menu-title">Transaksi</div>
+                                </a>
+                            </li>
+                            <li class="mm-show">
+                                <a href="#" class="{{$title == 'Riwayat Stock In' ? 'metismenu-active' : ''}}">
+                                    <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
+                                    <div class="menu-title">Stock In</div>
+                                </a>
+                            </li>
+                            <li class="mm-show">
+                                <a href="#" class="{{$title == 'Riwayat Barang Masuk' ? 'metismenu-active' : ''}}">
+                                    <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
+                                    <div class="menu-title">Barang Baru</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </li>
             <li class="metismenu">
                 <a href="/admin/account" class="{{$title == 'Akun' ? 'metismenu-active' : ''}}">

@@ -11,18 +11,20 @@
                         <th>Kategori</th>
                         <th>Stok</th>
                         <th>Harga</th>
+                        <th>Tanggal Masuk</th>
                         <th>Tanggal Kadaluarsa</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($products as $item)
-                    <tr>
+                    <tr class="{{$item->expiredDate <= now() ? 'table-danger' : ''}}">
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->category->name }}</td>
                         <td>{{ $item->stock }}</td>
                         <td>{{ $item->price }}</td>
+                        <td>{{ \Illuminate\Support\Carbon::parse($item->entryDate)->format('d F Y') }}</td>
                         <td>{{ \Illuminate\Support\Carbon::parse($item->expiredDate)->format('d F Y') }}</td>
                         <td>
                             <a href="javascript:void(0)" class="badge btn btn-secondary"
@@ -146,39 +148,30 @@
 
         function reinitDatatable(data){
             refreshDatatable(data, [
-                {
-                    data: null,
-                    render: function(data, type, row, meta){
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    }
-                },
-                {
-                    data: "name",
-                },
-                {
-                    data: "category.name",
-                },
-                {
-                    data: "stock",
-                },
-                {
-                    data: "price",
-                },
-                {
-                    data: "expiredDate",
-                },
-                {
-                    data: null,
-                    render: function(data, type, row){
-                        return `
-                        <a href="javascript:void(0)" class="badge btn btn-secondary"
-                                onclick="edit('${row.code}')"><i class="bi bi-pencil-square m-auto"></i></a>
-                        <a href="javascript:void(0)" class="badge btn btn-danger"
-                            onclick="deleteModal('${row.code}')"><i class="bi bi-trash m-auto"></i></a>
-                        `;
-                    }
+            { data: null, render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; } },
+            { data: "name" },
+            { data: "category.name" },
+            { data: "stock" },
+            { data: "price" },
+            { data: "entryDate" },
+            { data: "expiredDate" },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    // Gunakan template string untuk keterbacaan yang lebih baik
+                    return `
+                        <a href="javascript:void(0)" class="badge btn btn-secondary edit-button" data-code="${row.code}">
+                            <i class="bi bi-pencil-square m-auto"></i>
+                        </a>
+                        <a href="javascript:void(0)" class="badge btn btn-danger delete-button" data-code="${row.code}">
+                            <i class="bi bi-trash m-auto"></i>
+                        </a>
+                    `;
                 }
-            ]);
+            }
+        ]);
         }
+
+
     </script>
 @endpush

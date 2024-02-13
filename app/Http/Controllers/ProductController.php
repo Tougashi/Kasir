@@ -26,6 +26,7 @@ class ProductController extends Controller
                         'stock' => $product->stock,
                         'price' => $product->price,
                         'code' => $product->code,
+                        'entryDate' => Carbon::parse($product->entryDate)->format('d F Y'),
                         'expiredDate' => Carbon::parse($product->expiredDate)->format('d F Y'),
                     ];
                 }

@@ -11,13 +11,14 @@
     <meta name="csrf-token" content="{{csrf_token()}}"/>
     <link href="{{ asset('/assets/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') }}"
-        rel="stylesheet">
+    rel="stylesheet">
 
-        <link href="{{ asset('/assets/css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-        <link href="{{ asset('assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/datatables.css')}}">
+    <link href="{{ asset('/assets/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link href="{{ asset('assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('assets/icons/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css') }}">
         <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert/css/sweetalert2.min.css')}}">
@@ -47,7 +48,6 @@
     <!-- Bootstrap JS -->
     <script src="{{ asset('/assets/plugins/bootstrap/js/bootstrap.js') }}"></script>
 
-    {{-- <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/datatables.css')}}"> --}}
     <script type="text/javascript" src="{{asset('assets/plugins/datatable/js/datatables.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
 
@@ -69,7 +69,7 @@
             });
         }
 
-        function refreshDatatable(data, column){
+        function refreshDatatable(data, column, args){
             $('.dt').empty();
             $('.dt').DataTable({
                 responsive: true,
@@ -78,6 +78,13 @@
                 destroy: true,
                 data: data,
                 columns: column,
+                createdRow: (row, data, index) => {
+                    let expDate = new Date(data.expiredDate).toISOString();
+                    let now = new Date().toISOString();
+                    if(now >= expDate){
+                        $(row).addClass('table-danger');
+                    }
+                }
             });
         }
 
