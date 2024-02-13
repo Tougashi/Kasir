@@ -3,15 +3,16 @@
 <div class="card">
     <div class="py-3 px-4">
         <x-add-button/>
-        <table id="dataTable" class="table responsive">
+        <table id="dataTable" class="table table-bordered table-striped">
             <thead>
-                <tr>
+                <tr>   
                     <th>No</th>
                     <th>Nama</th>
                     <th>Peran</th>
                     <th></th>
                 </tr>
             </thead>
+            
             <tbody>
                 @foreach ($data as $item)
                 <tr>
@@ -29,7 +30,7 @@
                     <td>
                         <div class="d-flex order-actions">
                             <a href="{{ route('users.edit', [encrypt($item->id)] ) }}" class="btn-primary"><i class='bi bi-eye-fill'></i></a>
-                            <a href="{{ route('users.destroy', ['user' => encrypt($item->id)] ) }}" class="btn-danger" data-confirm-delete="true"><i class='bi bi-trash-fill'></i></a>
+                            <a href="{{ route('users.destroy', ['user' => encrypt($item->id)]  ) }}" class="btn-danger" data-confirm-delete="true"><i class='bi bi-trash-fill'></i></a>
                         </div>    
                     </td>
                 </tr>
