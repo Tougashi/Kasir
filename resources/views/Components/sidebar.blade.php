@@ -21,7 +21,7 @@
             </li>
             <li class="">
                 <ul class="metismenu d-block" id="menu" >
-                    <li class="{{$title == 'Daftar Produk' || $title == 'Tambah Produk' || $title == 'Stock-in Produk' ? 'mm-active' : ''}}">
+                    <li class="{{$title == 'Daftar Produk' || $title == 'Tambah Produk' || $title == 'Stock-in Produk' || $title == 'Produk Kadaluarsa' ? 'mm-active' : ''}}">
                         <a class="has-arrow {{$title == 'Daftar Produk' || $title == 'Tambah Produk' ? 'metismenu-active' : ''}}" href="javascript:void(0)" aria-expanded=""><i class="bi bi-database-gear"></i> Data Produk</a>
                         <ul>
                             <li class="mm-show">
@@ -40,6 +40,12 @@
                                 <a href="/admin/products/stock-in" class="{{$title == 'Stock-in Produk' ? 'metismenu-active' : ''}}">
                                     <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
                                     <div class="menu-title">Stock-in Produk</div>
+                                </a>
+                            </li>
+                            <li class="mm-show">
+                                <a href="/admin/products/expired" class="{{$title == 'Produk Kadaluarsa' ? 'metismenu-active' : ''}}">
+                                    <div class="parent-icon"><i class="bi bi-dash-lg"></i></div>
+                                    <div class="menu-title">Produk Kadaluarsa</div>
                                 </a>
                             </li>
 

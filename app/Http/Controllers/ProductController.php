@@ -141,4 +141,53 @@ class ProductController extends Controller
             'title' => 'Stock-in Produk',
         ]);
     }
+
+    public function getProductData(Request $request, $code){
+        $products = Product::where('code',$code)->first();
+        if($request->ajax()){
+            if(isset($products)){
+                return response()->json(['data' => $products, 'status' => 200]);
+            }else{
+                abort(404, 'Tidak ditemukan');
+            }
+        }else{
+            abort(400);
+        }
+    }
+
+    public function updateStock(Request $request){
+        if($request->ajax()){
+            $validate = $request->validate([
+                'code' => 'required',
+                'stock' => 'required',
+                'expiredDate' => 'required|after:today'
+            ]);
+
+            $dataProduct = Product::where('code', $validate['code'])->first();
+            $validate['stock'] = intval($dataProduct->stock) + intval($validate['stock']);
+
+            if($validate){
+                try{
+                    Product::where('code', $validate['code'])->update($validate);
+                    return response('Stok produk berhasil diperbarui');
+                }catch(\Exception $e){
+                    return abort(500);
+                }
+            }else{
+                abort(400);
+            }
+
+        }else{
+            abort(400);
+        }
+    }
+
+    public function expired(Request $request){
+        $productExpired = Product::where('expiredDate', '<=', now())->get();
+        // dd($productExpired);
+        return view('Pages.Admin.Products.expired', [
+            'title' => 'Produk Kadaluarsa',
+            'products' => $productExpired
+        ]);
+    }
 }

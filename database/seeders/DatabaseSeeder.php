@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-       
+
         User::factory()->create([
             'email' => 'admin@example.com',
             'username' => 'Admin',
@@ -46,5 +46,8 @@ class DatabaseSeeder extends Seeder
             'slug' => 'minuman',
             'description' => 'Minuman Berat & Ringan'
         ]);
+
+        \App\Models\Supplier::factory(3)->create();
+        \App\Models\Product::factory(10)->create();
     }
 }

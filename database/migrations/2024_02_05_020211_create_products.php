@@ -20,9 +20,10 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('stock');
             $table->decimal('price', 10,2);
+            $table->date('entryDate');
             $table->date('expiredDate');
             $table->string('image')->nullable();
-            
+
             $table->foreign('categoryId')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('supplierId')->references('id')->on('suppliers')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
@@ -30,7 +31,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.  
+     * Reverse the migrations.
      */
     public function down(): void
     {

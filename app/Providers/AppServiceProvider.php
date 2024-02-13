@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
-    
+
     public function boot()
     {
         // Menambahkan aturan validasi kustom untuk password
@@ -28,5 +28,7 @@ class AppServiceProvider extends ServiceProvider
         Validator::replacer('customPassword', function ($message, $attribute, $rule, $parameters) {
             return str_replace(':attribute', $attribute, 'Password harus memiliki panjang 8 dan memiliki Huruf Kapital dan setidaknya 1 Angka atau Simbol');
         });
+
+
     }
 }

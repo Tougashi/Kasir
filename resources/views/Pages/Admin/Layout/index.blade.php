@@ -13,32 +13,15 @@
     <link href="{{ url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') }}"
         rel="stylesheet">
 
-    <link href="{{ asset('/assets/css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
+        <link href="{{ asset('/assets/css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+        <link href="{{ asset('assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('assets/icons/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css') }}">
+        <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert/css/sweetalert2.min.css')}}">
 
-    <link href="{{ asset('assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/plugins/metismenu/css/metisMenu.scss') }}" rel="stylesheet" />
-
-    <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ asset('assets/icons/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css') }}">
-
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-    <!-- Bootstrap JS -->
-    <script src="{{ asset('/assets/plugins/bootstrap/js/bootstrap.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/index.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/util.js') }}"></script>
-    <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/dataTables.min.css')}}">
-    <script type="text/javascript" src="{{asset('assets/plugins/datatable/js/dataTables.min.js')}}"></script>
-
-    {{-- Sweeetalert --}}
-    <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert/css/sweetalert2.min.css')}}">
-    <script src="{{asset('assets/plugins/sweetalert/js/sweetalert2.all.min.js')}}"></script>
-    <script src="{{asset('assets/js/sweetalert/script.js')}}"></script>
 
     @yield('plugins')
 </head>
@@ -56,11 +39,22 @@
             </div>
         </div>
     </div>
-    <script>
 
-        $(function () {
-            $('#menu').metisMenu();
-        });
+
+
+
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{{ asset('/assets/plugins/bootstrap/js/bootstrap.js') }}"></script>
+
+    {{-- <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/datatables.css')}}"> --}}
+    <script type="text/javascript" src="{{asset('assets/plugins/datatable/js/datatables.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
+
+    {{-- Sweeetalert --}}
+    <script src="{{asset('assets/plugins/sweetalert/js/sweetalert2.all.min.js')}}"></script>
+    <script src="{{asset('assets/js/sweetalert/script.js')}}"></script>
+    <script>
         const currentUrl = '{{url()->current()}}';
         $(function(){
             $('[data-toggle="tooltip"]').tooltip();
