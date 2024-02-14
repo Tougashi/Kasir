@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
 use App\Models\Transaction;
-use App\Http\Requests\StoreTransactionRequest;
-use App\Http\Requests\UpdateTransactionRequest;
+use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
@@ -13,7 +15,10 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        return view('Pages.Admin.Page.Transactions.index', [
+            'title' => 'Transaksi',
+            'transactions' => Transaction::with('orders', 'user')->get(),
+        ]);
     }
 
     /**
@@ -21,13 +26,17 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        return view('Pages.Admin.Page.Transactions.create', [
+            'title' => 'Buat Transaksi',
+            'customers' => User::where('roles', 'Guest')->get(),
+            'products' => Product::all(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTransactionRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -51,7 +60,7 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTransactionRequest $request, Transaction $transaction)
+    public function update(Request $request, Transaction $transaction)
     {
         //
     }

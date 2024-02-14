@@ -10,4 +10,15 @@ class Transaction extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(\App\Models\Order::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 }

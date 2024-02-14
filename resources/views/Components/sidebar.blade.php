@@ -75,7 +75,7 @@
                 </a>
             </li>
             <li class="metismenu">
-                <a href="/admin/transaction" class="{{$title == 'Transaksi' ? 'metismenu-active' : ''}}">
+                <a href="/admin/transactions" class="{{$title == 'Transaksi' || $title == 'Buat Transaksi' ? 'metismenu-active' : ''}}">
                     <div class="parent-icon"><i class='bi bi-credit-card-2-front'></i></div>
                     <div class="menu-title">Transaksi</div>
                 </a>

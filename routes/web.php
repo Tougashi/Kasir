@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\DashboardAdminController;
 
 /*
@@ -97,6 +99,15 @@ Route::middleware('auth')->group(function () {
                 Route::post('/add/store', 'store');
                 Route::post('/update', 'update');
                 Route::get('/delete/{code}', 'destroy');
+            });
+
+            Route::prefix('transactions')->controller(TransactionController::class)->group(function(){
+                Route::get('/', 'index');
+                Route::get('/add', 'create');
+            });
+
+            Route::prefix('orders')->controller(OrderController::class)->group(function(){
+                Route::get('/', 'index');
             });
         });
     });
