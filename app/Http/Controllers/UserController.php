@@ -107,7 +107,7 @@ class UserController extends Controller
             'username' => 'required|unique:users,username,' . $user->id,
             'password' => 'nullable|customPassword',
             'image' => 'nullable|file|image|max:10290',
-            'roles' => 'required',
+            'roles' => 'required' . $user->id,
         ]);
     
         if ($validator->fails()) {
