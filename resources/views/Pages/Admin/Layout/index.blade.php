@@ -10,8 +10,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/logo.png') }}">
     <meta name="csrf-token" content="{{csrf_token()}}"/>
     <link href="{{ asset('/assets/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') }}"
-    rel="stylesheet">
+    <link href="{{ url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/datatables.css')}}">
     <link href="{{ asset('/assets/css/app.css') }}" rel="stylesheet">
@@ -19,9 +18,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link href="{{ asset('assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
-        <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('assets/icons/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css') }}">
-        <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert/css/sweetalert2.min.css')}}">
+    <link href="{{ asset('assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/icons/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert/css/sweetalert2.min.css')}}">
 
 
     @yield('plugins')
@@ -50,6 +50,7 @@
 
     <script type="text/javascript" src="{{asset('assets/plugins/datatable/js/datatables.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js') }}"></script>
 
     {{-- Sweeetalert --}}
     <script src="{{asset('assets/plugins/sweetalert/js/sweetalert2.all.min.js')}}"></script>

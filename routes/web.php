@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/not-allowed-method', function(){
         return view('errors.minimal2', [
-            'title' => 'Bad Request',
+            'title' => 'Bad Request', 
             'code' => 400,
             'message' => 'Bad Request'
         ]);

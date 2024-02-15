@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('entryDate');
             $table->date('expiredDate');
             $table->string('image')->nullable();
-
+            
             $table->foreign('categoryId')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('supplierId')->references('id')->on('suppliers')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

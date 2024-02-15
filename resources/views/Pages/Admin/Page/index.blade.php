@@ -92,5 +92,32 @@
             </div>
         </div>
 
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Menu Makanan dan Minuman</h2>
+            <div class="row">
+              <div class="col-md-4 mb-4">
+                <div class="card food-card">
+                  <img src="food1.jpg" class="card-img-top" alt="Makanan 1">
+                  <div class="card-body">
+                    <h5 class="card-title">Makanan 1</h5>
+                    <p class="card-text">Deskripsi Makanan 1</p>
+                    <button class="btn btn-primary">Beli</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="card drink-card">
+                  <img src="drink1.jpg" class="card-img-top" alt="Minuman 1">
+                  <div class="card-body">
+                    <h5 class="card-title">Minuman 1</h5>
+                    <p class="card-text">Deskripsi Minuman 1</p>
+                    <button class="btn btn-primary">Beli</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Tambahkan card lainnya di sini -->
+            </div>
+          </div>
+
     </div>
 @endsection

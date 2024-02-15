@@ -5,6 +5,13 @@
         <div class="p-4 border rounded">
             <form class="row g-3" action="{{ url()->current().'/store'}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <div class="mb-3 col-md">
+                    @error('image')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <label  for="inputProductDescription" class="form-label">Unggah Foto Profil </label>
+                    <input id="image-uploadify" type="file" name="image" accept="image/*" class="form-control" required>   
+                </div>
                 <div class="col-md-4">
                     <label for="email" class="form-label">Email</label>
                     <input type="text" class="form-control" name="email" id="email" placeholder="contoh@gmail.com" required>

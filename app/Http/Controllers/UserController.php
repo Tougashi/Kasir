@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -44,18 +45,24 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-
      public function store(Request $request)
      {
          $validator = Validator::make($request->all(), [
              'email' => 'required|email|unique:users|email:rfc',
              'username' => 'required|unique:users',
              'password' => 'required|customPassword',
+             'image' => 'required|file|image|max:10290',
              'roles' => 'required',
          ]);
          if ($validator->fails()) {
              return back()->withErrors($validator)->withInput();
          }
+
+        if ($request->hasFile('image')) {
+            $path = 'image/' . time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/', $path);
+            $validated['image'] = $path;
+        }
 
          $user = new User();
          $user->email = $request->email;
@@ -63,6 +70,7 @@ class UserController extends Controller
          $user->email_verified_at = Carbon::now();
          $user->username = $request->username;
          $user->password = bcrypt($request->password);
+         $user->image = $request->image;
          $user->roles = $request->roles;
          
          $user->save();
@@ -72,9 +80,6 @@ class UserController extends Controller
 
 
 
-    /**
-     * Display the specified resource.
-     */
     public function show(User $user)
     {
         $user = User::where('id', $this->userId())->first();
@@ -84,25 +89,49 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user, string $id)
+    public function edit($id)
     {
         $user = User::find(decrypt($id));
-        $user = User::find(decrypt($id));
         return view('Pages.Admin.Page.Account.show', [
-            'title' => 'Info Akun',
+            'title' => 'Detail Akun',
             'user' => $user
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail(decrypt($id));
+    
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'username' => 'required|unique:users,username,' . $user->id,
+            'password' => 'nullable|customPassword',
+            'image' => 'nullable|file|image|max:10290',
+            'roles' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+    
+        if ($request->hasFile('image')) {
+            if ($user->image) {
+                Storage::delete($user->image);
+            }
+            $path = 'image/' . time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/', $path);
+            $user->image = $path;
+        }
+        $user->email = $request->email;
+        $user->username = $request->username;
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->roles = $request->roles;
+        
+        $user->save();
+    
+        return back()->with('success', 'Data user berhasil diperbarui.');
     }
 
     public function destroy(string $id)

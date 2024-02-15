@@ -9,21 +9,21 @@
         }
     </style>
 
-    <div class="card">
+    <div class="card"> 
         <div class="container p-4">
             <div class="row">
-                <div class="col-lg-6 my-2">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="userId">Pilih Pelanggan</label>
                         <select name="select2" class="" name="userId" id="userId" style="width: 100%;">
-                            <option value=""></option>
+                            <option value="" selected disabled ></option>
                             @foreach ($customers as $customer)
                                 <option value="{{ $customer->id }}">{{ $customer->username }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-                <div class="col-lg-6 my-2">
+                <div class="col-md">
                     <label for="productId">Pilih Produk</label>
                     <div class="input-group flex-nowrap">
                         <select name="select2" class="" name="productId" id="productId" style="width: 100%;">
