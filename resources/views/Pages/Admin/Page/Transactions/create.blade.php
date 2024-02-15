@@ -12,7 +12,7 @@
     <div class="card">
         <div class="container p-4">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 my-2">
                     <div class="form-group">
                         <label for="userId">Pilih Pelanggan</label>
                         <select name="select2" class="" name="userId" id="userId" style="width: 100%;">
@@ -23,7 +23,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 my-2">
                     <label for="productId">Pilih Produk</label>
                     <div class="input-group flex-nowrap">
                         <select name="select2" class="" name="productId" id="productId" style="width: 100%;">
@@ -118,6 +118,8 @@
 
         let tableNumRows = 0;
 
+        let priceArr = [];
+
         function getProductData(code) {
             $.ajax({
                 method: 'GET',
@@ -127,6 +129,7 @@
                         $('#transactionTable').empty();
                     }
                     appendToTable(response.data);
+                    priceArr.push(parseInt(response.data.price));
                 },
                 error: function(error, xhr) {
                     errorAlert(error.message);
@@ -143,7 +146,7 @@
                 <td>${tableNumRows}</td>
                 <td>${data.name}</td>
                 <td>
-                    <input type="number" id="inputQty${tableNumRows}" value="1" class="m-0 p-0 w-100 border-0 form-control text-center">
+                    <input type="number" id="inputQty${tableNumRows}" oninput="calculateInput('${tableNumRows}')" value="1" class="m-0 p-0 w-100 border-0 form-control text-center">
                 </td>
                 <td>${data.price}</td>
             </tr>
@@ -160,13 +163,21 @@
             let val = [];
             for (let i = 0; i <= tableNumRows; i++) {
                 let valQty = $(`#inputQty${i}`).val();
-                if (parseInt(valQty) > 0 || valQty) {
-                    val.push(valQty);
-                } else {
-                    val.push(valQty);
+                if (parseInt(valQty) > 0 || valQty){
+                    if(val[0] === 'undefined'){
+                        val[0] = valQty;
+                    }else{
+                        val.push(valQty);
+                    }
                 }
             }
             console.log(val);
+            console.log(priceArr);
+        }
+
+        function calculateInput(rowId){
+            $(`tr#${rowId}`).find('td:nth-child');
         }
     </script>
 @endpush
+
