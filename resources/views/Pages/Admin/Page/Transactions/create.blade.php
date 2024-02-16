@@ -9,7 +9,7 @@
         }
     </style>
 
-    <div class="card"> 
+    <div class="card">
         <div class="container p-4">
             <div class="row">
                 <div class="col-md-3">
@@ -57,6 +57,7 @@
                     <tr>
                         <th> </th>
                         <th>No</th>
+                        <th>Kode Produk</th>
                         <th>Nama Produk</th>
                         <th>Jumlah</th>
                         <th>Harga</th>
@@ -64,23 +65,31 @@
                 </thead>
                 <tbody id="transactionTable">
                     <tr>
-                        <td colspan="5">Belum ada Data</td>
+                        <td colspan="6">Belum ada Data</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="3">Total</th>
+                        <th colspan="4">Total</th>
                         <th id="qtyTotal">0</th>
                         <th id="priceTotal">0</th>
                     </tr>
                     <tr class="text-end">
-                        <th colspan="4">Subtotal</th>
+                        <th colspan="5">Subtotal</th>
                         <th id="subtotalTotal">0</th>
                     </tr>
-                </tfoot>                
+                </tfoot>
                 <tbody id="transactionTable">
                 </tbody>
             </table>
+            <div class="row gap-2">
+                <div class="col-lg-4 col-md-4 col-12 order-lg-1 order-md-1 order-2">
+                    <a href="/admin/transactions" class="btn btn-secondary w-100">Kembali</a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12 d-flex justify-content-end ms-auto order-lg-2 order-md-2 order-1">
+                    <button type="button" onclick="processTransaction()" class="btn btn-primary w-100">Proses</button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -103,7 +112,7 @@
     });
 
     let tableNumRows = 0;
-    let priceArr = [];
+    let productCodeArr = [];
 
     function addToTable() {
         let val = $('#productId').val();
@@ -115,23 +124,35 @@
     };
 
     function getProductData(code) {
-        $.ajax({
-            method: 'GET',
-            url: '/admin/products/get/' + code,
-            success: function(response) {
-                if (tableNumRows <= 0) {
-                    $('#transactionTable').empty();
+        if(productCodeArr.includes(code)){
+            let indexArr = productCodeArr.indexOf(code);
+            console.log(`array index ke ${indexArr} dan di tableNumRows ke ${indexArr + 1}`);
+        }else{
+            $.ajax({
+                method: 'GET',
+                url: '/admin/products/get/' + code,
+                success: function(response) {
+                    if (tableNumRows <= 0) {
+                        $('#transactionTable').empty();
+                    }
+                    productCodeArr.push(response.data.code);
+                    appendToTable(response.data);
+                    calculateTable();
+                },
+                error: function(error, xhr) {
+                    errorAlert(error.message);
+                    console.log(xhr.responseText);
                 }
-                appendToTable(response.data);
-                priceArr.push(parseInt(response.data.price));
-                calculateTable();
-            },
-            error: function(error, xhr) {
-                errorAlert(error.message);
-                console.log(xhr.responseText);
-            }
-        });
+            });
+        }
     }
+
+    function renumberRows() {
+    $('#regularTable tbody tr').each(function(index) {
+        $(this).find('td:nth-child(2)').text(index + 1);
+        // Menetapkan teks pada sel kedua di setiap baris dengan nomor urutan yang sesuai
+    });
+}
 
     function appendToTable(data) {
         tableNumRows++;
@@ -139,6 +160,7 @@
         <tr id="${tableNumRows}">
             <td><button class="float-start btn btn-sm btn-danger pe-1" onclick="removeRow('${tableNumRows}')"><i class="bi bi-trash"></i></button></td>
             <td>${tableNumRows}</td>
+            <td>${data.code}</td>
             <td>${data.name}</td>
             <td>
                 <input type="number" id="inputQty${tableNumRows}" oninput="calculateInput('${tableNumRows}')" value="1" class="m-0 p-0 w-100 border-0 form-control text-center">
@@ -146,12 +168,27 @@
             <td id="price${tableNumRows}">${data.price}</td>
         </tr>
         `);
+        renumberRows();
     }
 
+
+
     function removeRow(row) {
-        $(`tr#${row}`).remove();
+        let codeProduct = $(`tr#${row}`).find('td:nth-child(3)').text();
+        let indexOfArr = productCodeArr.indexOf(codeProduct);
+        productCodeArr.splice(indexOfArr, 1);
+        $('#' + row).remove();
+        renumberRows();
         calculateTable();
+        if(tableNumRows < 1){
+            $('#transactionTable').empty().append(`
+            <tr>
+                <td colspan="6">Belum ada Data</td>
+            </tr>`
+            );
+        }
     }
+
 
     function calculateTable() {
         let qtyTotal = 0;
@@ -159,10 +196,14 @@
         for (let i = 1; i <= tableNumRows; i++) {
             let valQty = $(`#inputQty${i}`).val();
             let valPrice = $(`#price${i}`).text();
-            let subtotal = parseInt(valQty) * parseFloat(valPrice);
-            $(`#subtotal${i}`).text(subtotal);
-            qtyTotal += parseInt(valQty);
-            priceTotal += subtotal;
+            if(isNaN(parseInt(valQty))){
+                valQty = 0;
+            }else{
+                let subtotal = parseInt(valQty) * parseFloat(valPrice);
+                $(`#subtotal${i}`).text(subtotal);
+                qtyTotal += parseInt(valQty);
+                priceTotal += subtotal;
+            }
         }
         $('#qtyTotal').text(qtyTotal);
         $('#priceTotal').text(priceTotal);
@@ -172,9 +213,26 @@
     function calculateInput(rowId){
         let valQty = $(`#inputQty${rowId}`).val();
         let valPrice = $(`#price${rowId}`).text();
-        let totalPrice = parseInt(valQty) * parseFloat(valPrice);
-        $(`#subtotal${rowId}`).text(totalPrice);
-        calculateTable();
+        if(isNaN(parseInt(valQty))){
+            valQty = 0;
+        }else{
+            let totalPrice = parseInt(valQty) * parseFloat(valPrice);
+            $(`#subtotal${rowId}`).text(totalPrice);
+            calculateTable();
+        }
+    }
+
+    function processTransaction(){
+        let totalProductArr = [];
+        for(let i=0; i<=tableNumRows; i++){
+            if(typeof totalProductArr[0] == 'undefined'){
+                totalProductArr[0] = $(`#inputQty${i}`).val();
+            }else{
+                let total = $(`#inputQty${i}`).val();
+                totalProductArr.push(total);
+            }
+        }
+
     }
 
 </script>

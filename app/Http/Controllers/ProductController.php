@@ -35,7 +35,7 @@ class ProductController extends Controller
             }
             return response()->json(['data' => $products]);
         } else {
-            return view('Pages.Admin.Products.list', [
+            return view('Pages.Admin.Page.Products.list', [
                 'title' => 'Daftar Produk',
                 'products' => $products,
             ]);
@@ -47,7 +47,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('Pages.Admin.Products.create', [
+        return view('Pages.Admin.Page.Products.create', [
             'title' => 'Tambah Produk',
             'categories' => Category::all(),
             'suppliers' => Supplier::all(),
@@ -138,7 +138,7 @@ class ProductController extends Controller
 
 
     public function stockIn(){
-        return view('Pages.Admin.Products.stock-in', [
+        return view('Pages.Admin.Page.Products.stock-in', [
             'title' => 'Stock-in Produk',
         ]);
     }
@@ -186,7 +186,7 @@ class ProductController extends Controller
     public function expired(Request $request){
         $productExpired = Product::where('expiredDate', '<=', now())->get();
         // dd($productExpired);
-        return view('Pages.Admin.Products.expired', [
+        return view('Pages.Admin.Page.Products.expired', [
             'title' => 'Produk Kadaluarsa',
             'products' => $productExpired
         ]);
