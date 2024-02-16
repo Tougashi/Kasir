@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/not-allowed-method', function(){
         return view('errors.minimal2', [
-            'title' => 'Bad Request', 
+            'title' => 'Bad Request',
             'code' => 400,
             'message' => 'Bad Request'
         ]);
@@ -104,6 +104,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('transactions')->controller(TransactionController::class)->group(function(){
                 Route::get('/', 'index');
                 Route::get('/add', 'create');
+                Route::post('/add/process', 'store');
             });
 
             Route::prefix('orders')->controller(OrderController::class)->group(function(){

@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label for="userId">Pilih Pelanggan</label>
                         <select name="select2" class="" name="userId" id="userId" style="width: 100%;">
-                            <option value="" selected disabled ></option>
+                            <option value="0" selected>Umum</option>
                             @foreach ($customers as $customer)
                                 <option value="{{ $customer->id }}">{{ $customer->username }}</option>
                             @endforeach
@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-lg-6 d-flex">
                     <p class="fw-bold">Nama Customer :</p>
-                    <p class="ms-2" id="custName"></p>
+                    <p class="ms-2" id="custName">Umum</p>
                 </div>
                 <div class="col-lg-6 d-flex">
                     <p class="fw-bold">Waktu Transaksi :</p>
@@ -132,7 +132,7 @@
                 method: 'GET',
                 url: '/admin/products/get/' + code,
                 success: function(response) {
-                    if (tableNumRows <= 0) {
+                    if (productCodeArr.length < 1) {
                         $('#transactionTable').empty();
                     }
                     productCodeArr.push(response.data.code);
@@ -148,10 +148,17 @@
     }
 
     function renumberRows() {
-    $('#regularTable tbody tr').each(function(index) {
-        $(this).find('td:nth-child(2)').text(index + 1);
-        // Menetapkan teks pada sel kedua di setiap baris dengan nomor urutan yang sesuai
-    });
+        if(productCodeArr.length < 1){
+            $('#transactionTable').empty().append(`
+            <tr>
+                <td colspan="6">Belum ada Data</td>
+            </tr>
+            `);
+        }else{
+            $('#regularTable tbody tr').each(function(index) {
+                $(this).find('td:nth-child(2)').text(index + 1);
+            });
+        }
 }
 
     function appendToTable(data) {
@@ -171,8 +178,6 @@
         renumberRows();
     }
 
-
-
     function removeRow(row) {
         let codeProduct = $(`tr#${row}`).find('td:nth-child(3)').text();
         let indexOfArr = productCodeArr.indexOf(codeProduct);
@@ -180,15 +185,7 @@
         $('#' + row).remove();
         renumberRows();
         calculateTable();
-        if(tableNumRows < 1){
-            $('#transactionTable').empty().append(`
-            <tr>
-                <td colspan="6">Belum ada Data</td>
-            </tr>`
-            );
-        }
     }
-
 
     function calculateTable() {
         let qtyTotal = 0;
@@ -225,17 +222,66 @@
     function processTransaction(){
         let totalProductArr = [];
         for(let i=0; i<=tableNumRows; i++){
-            if(typeof totalProductArr[0] == 'undefined'){
-                totalProductArr[0] = $(`#inputQty${i}`).val();
-            }else{
-                let total = $(`#inputQty${i}`).val();
-                totalProductArr.push(total);
-            }
+            let total = $(`#inputQty${i}`).val();
+            totalProductArr.push(total);
+            totalProductArr = totalProductArr.filter(function(element){
+                return element !== undefined;
+            });
         }
 
+        let userId = $('#userId').val();
+
+        if(userId === 'null' || productCodeArr.length < 1){
+            errorAlert('Data yang dibutuhkan tidak boleh Kosong');
+        }else{
+            let formData = new FormData();
+            formData.append('totalProductArr', JSON.stringify(totalProductArr));
+            formData.append('productCodeArr', JSON.stringify(productCodeArr));
+            formData.append('totalPrice', $('#subtotalTotal').text());
+
+            $.ajax({
+                url: currentUrl+'/process',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function(){
+                    info('Tunggu sebentar...');
+                },
+                success: function(response){
+                    successAlert();
+                    resetAllChanges();
+                },
+                error: function(error, xhr){
+                    errorAlert();
+                    console.log(error.message);
+                },
+            }).done(function(){
+                if(confirm('Apakah ingin cetak struk ?') === true){
+                    console.log('true');
+                }else{
+                    console.log('false');
+                }
+            });
+        }
+    }
+
+    function resetAllChanges(){
+        $('#userId').val('0').change();
+        $('#productId').val('').change();
+        productCodeArr = [];
+        tableNumRows = 0;
+        $('#transactionTable').empty();
+        renumberRows();
+        calculateTable();
     }
 
 </script>
+
+
 
 @endpush
 

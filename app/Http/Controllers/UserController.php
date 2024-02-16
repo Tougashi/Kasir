@@ -14,6 +14,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function userId(){
         if(auth()->check()){
             return auth()->user()->id;
@@ -72,9 +73,9 @@ class UserController extends Controller
          $user->password = bcrypt($request->password);
          $user->image = $request->image;
          $user->roles = $request->roles;
-         
+
          $user->save();
-     
+
          return back()->with('success', 'User berhasil ditambahkan.');
      }
 
@@ -101,7 +102,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail(decrypt($id));
-    
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email,' . $user->id,
             'username' => 'required|unique:users,username,' . $user->id,
@@ -109,11 +110,11 @@ class UserController extends Controller
             'image' => 'nullable|file|image|max:10290',
             'roles' => 'required' . $user->id,
         ]);
-    
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-    
+
         if ($request->hasFile('image')) {
             if ($user->image) {
                 Storage::delete($user->image);
@@ -128,9 +129,9 @@ class UserController extends Controller
             $user->password = bcrypt($request->password);
         }
         $user->roles = $request->roles;
-        
+
         $user->save();
-    
+
         return back()->with('success', 'Data user berhasil diperbarui.');
     }
 
