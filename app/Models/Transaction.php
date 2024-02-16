@@ -12,13 +12,13 @@ class Transaction extends Model
     protected $guarded = ['id'];
 
 
-    public function orders(): HasMany
+    public function orders()
     {
         return $this->hasMany(\App\Models\Order::class);
     }
 
-    public function user(): BelongsTo
+    public function user()
     {
-        return $this->belongsTo(\App\Models\User::class);
+        return $this->belongsTo(\App\Models\User::class, 'id');
     }
 }

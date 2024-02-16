@@ -23,9 +23,23 @@ class TransactionController extends Controller
 
     public function index()
     {
+        $orders = Order::with('user')->get();
+
+        foreach($orders as $order){
+            $newTransactions[] = [
+                'transactionId' => $order->id,
+                'custName' => $order->user->username,
+                'products' => Product::whereIn('id', json_decode($order->productId))->get()->pluck('name'),
+                'totalPrice' => $order->totalPrice,
+                'qty' => json_decode($order->quantity),
+                'total' => $order->totalPrice,
+                'transactionDate' => $order->created_at->format('d F Y H:i')
+            ];
+        }
+
         return view('Pages.Admin.Page.Transactions.index', [
             'title' => 'Transaksi',
-            'transactions' => Transaction::with('orders', 'user')->get(),
+            'transactions' => $newTransactions,
         ]);
     }
 
