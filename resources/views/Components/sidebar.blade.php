@@ -108,7 +108,7 @@
                 </ul>
             </li>
             <li class="metismenu">
-                <a href="/admin/account" class="{{$title == 'Akun' ? 'metismenu-active' : ''}}">
+                <a href="/admin/account" class="{{$title == 'Daftar Akun' || $title == 'Tambah Akun' ? 'metismenu-active' : ''}}">
                     <div class="parent-icon"><i class='bi bi-people'></i></div>
                     <div class="menu-title">Akun</div>
                 </a>

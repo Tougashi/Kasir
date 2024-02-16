@@ -39,7 +39,7 @@ class AuthController extends Controller
             if($user->roles == 'Admin') {
                 return redirect('admin/dashboard')->with(['success', 'Berhasil Login Admin']);
             }elseif($user->roles == 'Cashier') {
-                return redirect('kasir/dashboard')->with(['success', 'Berhasil Login Kasir']);
+                return redirect('cashier/dashboard')->with(['success', 'Berhasil Login Kasir']);
             }elseif($user->roles == 'Guest') {
                 return redirect('/beranda')->with(['success', 'Berhasil Login Pelanggan']);
             }else{

@@ -11,7 +11,9 @@ class DashboardCashierController extends Controller
      */
     public function index()
     {
-        //
+        return view('Pages.Cashier.index', [
+            'title' => 'Dashboard'
+        ]);
     }
 
     /**

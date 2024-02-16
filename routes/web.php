@@ -6,9 +6,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\DashboardCashierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,12 +112,13 @@ Route::middleware('auth')->group(function () {
             Route::prefix('orders')->controller(OrderController::class)->group(function(){
                 Route::get('/', 'index');
             });
+
         });
     });
 
     Route::middleware('checkRole:Cashier')->group(function () {
         Route::prefix('cashier')->group(function(){
-            Route::controller(DashboardAdminController::class)->group(function(){
+            Route::controller(DashboardCashierController::class)->group(function(){
                 Route::get('/dashboard', 'index');
             });
         });
