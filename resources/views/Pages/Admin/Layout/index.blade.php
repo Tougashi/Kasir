@@ -28,18 +28,21 @@
 </head>
 
 <body>
-    @include('Components.sidebar')
-    @include('Components.navbar')
-    <div class="w-80p d-flex float-end container py-3 d-flex">
-        <div class="w-100 py-1">
-            <div class="d-flex align-items-center justify-content-between">
-                <h3 class="ps-4 mt-lg-3 mt-0" id="cardWrapperTitle">{{ $title }}</h3>
-            </div>
-            <div id="content" class="mt-2 pb-5 w-100">
-                @yield('content')
+    @include('Components.sidenav')
+
+    <div class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <h3 class="content-title">{{ $title }}</h3>
+                </div>
+                <div id="content" class="content-body">
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>
+    
 
 
 
