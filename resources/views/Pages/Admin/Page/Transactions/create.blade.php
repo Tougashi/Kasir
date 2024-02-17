@@ -15,8 +15,8 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="userId">Pilih Pelanggan</label>
-                        <select name="select2" class="" name="userId" id="userId" style="width: 100%;">
-                            <option value="0" selected>Umum</option>
+                        <select name="select2" class="" name="custId" id="custId" style="width: 100%;">
+                            <option value="3" selected>Umum</option>
                             @foreach ($customers as $customer)
                                 <option value="{{ $customer->id }}">{{ $customer->username }}</option>
                             @endforeach
@@ -97,7 +97,7 @@
 <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 <script>
     $().ready(function() {
-        $('#userId, #productId').select2();
+        $('#custId, #productId').select2();
     });
 
     setInterval(() => {
@@ -229,15 +229,16 @@
             });
         }
 
-        let userId = $('#userId').val();
+        let custId = $('#custId').val();
 
-        if(userId === 'null' || productCodeArr.length < 1){
+        if(custId === 'null' && productCodeArr.length < 1){
             errorAlert('Data yang dibutuhkan tidak boleh Kosong');
         }else{
             let formData = new FormData();
             formData.append('totalProductArr', JSON.stringify(totalProductArr));
             formData.append('productCodeArr', JSON.stringify(productCodeArr));
             formData.append('totalPrice', $('#subtotalTotal').text());
+            formData.append('custId', custId);
 
             $.ajax({
                 url: currentUrl+'/process',
@@ -253,11 +254,11 @@
                 },
                 success: function(response){
                     successAlert();
+                    console.log(response.data);
                     resetAllChanges();
                 },
-                error: function(error, xhr){
-                    errorAlert();
-                    console.log(error.message);
+                error: function (xhr, error) {
+                    errorAlert(xhr.responseText);
                 },
             }).done(function(){
                 if(confirm('Apakah ingin cetak struk ?') === true){

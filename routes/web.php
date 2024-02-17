@@ -106,6 +106,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('transactions')->controller(TransactionController::class)->group(function(){
                 Route::get('/', 'index');
                 Route::get('/add', 'create');
+                Route::get('/details/{id}/{req}', 'show');
                 Route::post('/add/process', 'store');
             });
 

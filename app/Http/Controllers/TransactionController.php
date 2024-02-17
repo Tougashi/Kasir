@@ -25,14 +25,17 @@ class TransactionController extends Controller
     {
         $orders = Order::with('user')->get();
 
+        $newTransactions = [];
+
         foreach($orders as $order){
             $newTransactions[] = [
                 'transactionId' => $order->id,
-                'custName' => $order->user->username,
+                'custName' => $order->customer->username,
                 'products' => Product::whereIn('id', json_decode($order->productId))->get()->pluck('name'),
                 'totalPrice' => $order->totalPrice,
                 'qty' => json_decode($order->quantity),
                 'total' => $order->totalPrice,
+                'adminName' => $order->user->username,
                 'transactionDate' => $order->created_at->format('d F Y H:i')
             ];
         }
@@ -66,7 +69,8 @@ class TransactionController extends Controller
             $validate = Validator::make($data, [
                 'totalProductArr' => 'required|json',
                 'productCodeArr' => 'required|json',
-                'totalPrice' => 'required'
+                'totalPrice' => 'required',
+                'custId' => 'required'
             ]);
 
             if($validate->fails()){
@@ -77,26 +81,49 @@ class TransactionController extends Controller
 
             $newTransaction = Transaction::create([
                 'userId' => $this->userController->userId(),
+                'custId' => $productData['custId']
             ]);
 
-            $check = Product::whereIn('code', json_decode($productData['productCodeArr']))->get()->pluck('id')->toJson();
+            $check = Product::whereIn('code', json_decode($data['productCodeArr']))->get();
+            $toNewOrder = $check->pluck('id')->toArray();
 
             $newOrder = [
                 'transactionId' => $newTransaction->id,
-                'productId' => $check,
+                'productId' => json_encode($toNewOrder),
+                'custId' => $productData['custId'],
                 'userId' => $this->userController->userId(),
                 'quantity' => $productData['totalProductArr'],
                 'totalPrice' => $productData['totalPrice']
             ];
 
+            // $updateStock;
+            foreach($check as $key => $product){
+                if(intval($product->stock) < intval(json_decode($productData['totalProductArr'])[$key])){
+                    return response("Stok produk kode ".$product->code." tidak mencukupi", 403);
+
+                }else{
+                    $currentStock = $product->stock;
+                    $newStock = intval(json_decode($productData['totalProductArr'])[$key]);
+                    $updateStock = intval($currentStock) - intval($newStock);
+                    try{
+                        Product::where('code', $product->code)->update([
+                            'stock' => $updateStock
+                        ]);
+                    }catch(\Exception $e){
+                        return response('Kesalahan saat memperbarui Stok produk', 500);
+                    }
+                }
+            }
+
             try{
                 Order::create($newOrder);
                 return response('Data Transaksi berhasil di Record');
+
             }catch(\Exception $e){
                 abort($e->getMessage());
             }
 
-            // return response()->json(['data' => $data]);
+            return response()->json(['data' => $updateStock]);
         }else{
             abort(400);
         }
@@ -105,17 +132,44 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Transaction $transaction)
+    public function show($id, $req)
     {
-        //
+        $transaction = Order::with('user')->findOrFail(decrypt($id));
+        $transactionArr = [];
+        $transactionArr[] = [
+            'transactionId' => $transaction->id,
+            'products' => Product::whereIn('id', json_decode($transaction['productId']))->get(),
+            'totalQty' => json_decode($transaction->quantity),
+            'totalPrice' => $transaction->totalPrice,
+            'admin' => $transaction->user->username,
+            'customer' => $transaction->customer->username,
+            'transactionDate' => $transaction->created_at->format('d F Y H:i')
+        ];
+
+        if($req === 'print'){
+            return view('Pages.Admin.Page.Transactions.print', [
+                'title' => 'Print Page',
+                'transaction' => $transactionArr
+            ]);
+        }else{
+            return view('Pages.Admin.Page.Transactions.details', [
+                'title' => 'Detail Transaksi',
+                'transaction' => $transactionArr
+            ]);
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Transaction $transaction)
+    public function print($id)
     {
-        //
+    }
+
+
+    public function edit($id)
+    {
+
     }
 
     /**

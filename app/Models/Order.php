@@ -15,4 +15,9 @@ class Order extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'userId');
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'custId');
+    }
 }

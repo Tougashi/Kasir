@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('userId');
+            $table->unsignedBigInteger('custId');
             $table->enum('status', ['pending', 'completed', 'cancelled'])->default('pending');
 
+            $table->foreign('custId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

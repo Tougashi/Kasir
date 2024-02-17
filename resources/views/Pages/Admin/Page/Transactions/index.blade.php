@@ -8,7 +8,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>ID Transaksi</th>
+                        <th>Nama Admin</th>
                         <th>Nama Pelanggan</th>
                         <th>Nama Produk</th>
                         <th>Jumlah</th>
@@ -21,7 +21,7 @@
                     @foreach ($transactions as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ md5($item['transactionId']) }}</td>
+                            <td>{{$item['adminName']}}</td>
                             <td>{{ $item['custName'] }}</td>
                             <td>
                                 <ol>
@@ -30,13 +30,18 @@
                                     @endforeach
                                 </ol>
                             </td>
-                            <td>{{ count($item['products']) }}</td>
+                            <td>
+                                <ol>
+                                    @foreach ($item['qty'] as $qty)
+                                        <li>{{ $qty }}</li>
+                                    @endforeach
+                                </ol>
+                            </td>
                             <td>{{ $item['totalPrice'] }}</td>
                             <td>{{ $item['transactionDate'] }}</td>
                             <td>
-                                <a href="javascript:void(0)" class="badge btn btn-danger"
-                                    onclick="deleteModal('{{ encrypt($item['transactionId']) }}')"><i
-                                        class="bi bi-trash m-auto"></i></a>
+                                <a href="{{url()->current().'/details/'.encrypt($item['transactionId'])}}/show" class="badge btn btn-primary"><i
+                                        class="bi bi-eye m-auto"></i></a>
                             </td>
                         </tr>
                     @endforeach

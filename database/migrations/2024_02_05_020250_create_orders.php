@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('transactionId');
             $table->json('productId');
+            $table->unsignedBigInteger('custId');
             $table->unsignedBigInteger('userId');
             $table->json('quantity');
             $table->decimal('totalPrice', 10,2);
@@ -22,6 +23,7 @@ return new class extends Migration
 
             $table->foreign('transactionId')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');
             // $table->foreign('productId')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('custId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
