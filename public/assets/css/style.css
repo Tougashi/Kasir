@@ -42,15 +42,18 @@ table th, table thead {
      color: white !important; 
  }
 
-     .food-card,
-.drink-card {
-  transition: transform 0.3s ease-in-out;
+.food-card, .drink-card {
+     transition: transform 0.3s ease-in-out;
 }
 
-.food-card:hover,
-.drink-card:hover {
-  transform: scale(1.1);
+.food-card:hover, .drink-card:hover {
+     transform: scale(1.1);
 }
+
+.custom-rounded {
+     border-radius: 15px !important; 
+ }
+
 
  
  

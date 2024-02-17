@@ -23,11 +23,11 @@
                     <br><br><br><br>
                     <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
                         <div class="col-20 mx-auto" style="width: 500px;">
-                            <div class="card mt-auto border-primary my-5 border-2 rounded">
+                            <div class="card mt-auto border-primary my-5 border-2 custom-rounded ">
                                 <div class="card-body">
-                                    <div class="p-4 rounded">
+                                    <div class="p-4">
                                         <div class="text-center">
-                                            <img src="/assets/images/logo-text2.png" alt="Kasir" width="300" class="rounded mx-auto d-block">
+                                            <img src="/assets/images/logo-text2.png" alt="Kasir" width="300" class="mx-auto d-block">
                                         </div>
                                         <br>
                                         <div class="form-body mt-4">
