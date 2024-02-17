@@ -48,12 +48,12 @@
             </div>
         </div>
     </div>
-    
 
 
 
 
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+
+    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap JS -->
     <script src="{{ asset('/assets/plugins/bootstrap/js/bootstrap.js') }}"></script>
 

@@ -14,7 +14,7 @@
     <!-- Bootstrap JS -->
 	<script src="{{ asset('/assets/js/bootstrap.bundle.min.js') }}"></script>
 	<!--plugins-->
-	<script src="{{ asset('/assets/js/jquery.min.js') }}"></script>
+	<script src="{{ asset('/assets/plugins/jquery/jquery.min.js') }}"></script>
 </head>
 <body style="">
         <div class="wrapper">
