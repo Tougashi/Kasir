@@ -2,7 +2,6 @@
 @section('content')
     <div class="card">
         <div class="container py-3 px-4">
-            <x-add-button />
             <table class="table table-resposive dt">
                 <thead>
                     <tr>

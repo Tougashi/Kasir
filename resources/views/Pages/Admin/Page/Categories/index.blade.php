@@ -1,7 +1,6 @@
 @extends('Pages.Admin.Layout.index')
 @section('content')
 <div class="card p-3">
-    <x-add-button/>
     <div class="container">
         <table class="table table-responsive dt">
             <thead>

@@ -338,12 +338,12 @@ table th, table thead {
 
 
 .main-content {
-     margin-top: 80px; /* Adjust according navbar height */
-     padding-left: 10px; /* Adjust according sidenav width */
+     margin-top: 80px; 
+     padding-left: 10px; /
  }
  
  .container {
-     width: calc(100%); /* Adjust according sidenav width */
+     width: calc(100%); 
  }
  
  .content-wrapper {
@@ -352,6 +352,10 @@ table th, table thead {
  
  .content-header {
      margin-bottom: 20px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between; 
+
  }
  
  .content-title {
@@ -363,28 +367,45 @@ table th, table thead {
      padding: 20px;
      border-radius: 5px;
  }
+ 
+
+.add-button {
+     margin-left: 10px;
+ }
+ 
+ .add-button a {
+     display: inline-block;
+     padding: 10px 20px; 
+     font-size: 16px;
+     border-radius: 30px;
+ }
+ 
 
  @media screen and (max-width: 768px) {
      .main-content {
          padding-left: 0;
      }
+     .add-button a {
+          padding: 12px 24px; 
+          font-size: 18px; 
+      }
  }
  
  @media screen and (min-width: 769px) {
      .sidebar.close + .main-content {
-         margin-left: 80px; /* Sesuaikan dengan lebar sidebar yang tertutup */
+         margin-left: 80px; 
      }
  }
  
  @media screen and (min-width: 769px) and (max-width: 992px) {
      .sidebar.close + .main-content {
-         margin-left: 250px; /* Sesuaikan dengan lebar sidebar yang terbuka */
+         margin-left: 250px;
      }
  }
  
  @media screen and (min-width: 993px) {
      .sidebar + .main-content {
-         margin-left: 260px; /* Sesuaikan dengan lebar sidebar yang terbuka */
+         margin-left: 260px; 
      }
  }
  

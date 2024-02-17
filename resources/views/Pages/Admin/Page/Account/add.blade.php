@@ -1,7 +1,6 @@
 @extends('Pages.Admin.Layout.index')
 @section('content')
 <div class="card">
-    <div class="card-body">
         <div class="p-4 border rounded">
             <form class="row g-3" action="{{ url()->current().'/store'}}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -37,7 +36,7 @@
                 </div>
                 <div class="col-md">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password dengan Kapital diawal dan menggunakan satu Angka atau Simbol" required>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password diawali dengan Kapital dan menggunakan satu Angka atau Simbol" required>
                     @error('password')
                     <div class="invalid-feedback">Kata Sandi min 8</div>
                     @enderror
@@ -53,6 +52,5 @@
                 </div>
             </form>
         </div>
-    </div>
 </div>
 @endsection

@@ -35,6 +35,12 @@
             <div class="content-wrapper">
                 <div class="content-header">
                     <h3 class="content-title">{{ $title }}</h3>
+                    @php
+                    $currentUrl = url()->current();
+                    @endphp
+                    @unless(request()->is('admin/dashboard') || Str::endsWith($currentUrl, '/add'))
+                        <x-add-button/>
+                    @endunless
                 </div>
                 <div id="content" class="content-body">
                     @yield('content')
