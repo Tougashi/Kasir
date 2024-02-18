@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -108,11 +109,16 @@ Route::middleware('auth')->group(function () {
                 Route::get('/add', 'create');
                 Route::get('/details/{id}/{req}', 'show');
                 Route::post('/add/process', 'store');
+                Route::post('/cancel', 'destroy');
             });
 
-            Route::prefix('orders')->controller(OrderController::class)->group(function(){
-                Route::get('/', 'index');
+            Route::prefix('history')->controller(HistoryController::class)->group(function(){
+                Route::get('/transactions', 'transactions');
             });
+
+            // Route::prefix('orders')->controller(OrderController::class)->group(function(){
+            //     Route::get('/', 'index');
+            // });
 
         });
     });

@@ -20,4 +20,9 @@ class Order extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'custId');
     }
+
+    public function transaction()
+    {
+        return $this->belongsTo(\App\Models\Transaction::class, 'transactionId');
+    }
 }

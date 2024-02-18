@@ -13,13 +13,8 @@
     <link href="{{ url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('assets/plugins/datatable/css/datatables.css')}}">
-    <link href="{{ asset('/assets/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link href="{{ asset('assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/icons/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css') }}">
     <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert/css/sweetalert2.min.css')}}">
 
@@ -38,7 +33,7 @@
                     @php
                     $currentUrl = url()->current();
                     @endphp
-                    @unless(request()->is('admin/dashboard') || Str::endsWith($currentUrl, '/add'))
+                    @unless(request()->is('admin/dashboard') || request()->is('admin/products/stock-in') || Str::endsWith($currentUrl, '/add') || Str::of($currentUrl)->contains('history'))
                         <x-add-button/>
                     @endunless
                 </div>
@@ -58,8 +53,7 @@
     <script src="{{ asset('/assets/plugins/bootstrap/js/bootstrap.js') }}"></script>
 
     <script type="text/javascript" src="{{asset('assets/plugins/datatable/js/datatables.min.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js') }}"></script>
+
 
     {{-- Sweeetalert --}}
     <script src="{{asset('assets/plugins/sweetalert/js/sweetalert2.all.min.js')}}"></script>
@@ -69,6 +63,30 @@
         $(function(){
             $('[data-toggle="tooltip"]').tooltip();
         });
+
+        function alertExpProduct(){
+            $('#alertExpProduct').empty().append(`<div class="alert alert-danger" role="alert">
+                Terdapat Product yang telah Kadaluarsa, Periksa Segera
+            </div>`);
+        }
+
+        function printTable(tableId){
+            let dt = $(`${tableId}`).DataTable({
+                responsive: true,
+                searching: true,
+                autoWidth: false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'colvis','copy', 'excel', 'pdf'
+                ],
+                destroy: true,
+                // layout: {
+                //     topStart: {
+                //         buttons: ['colvis','copy', 'csv', 'excel', 'pdf', 'print']
+                //     }
+                // },
+            });
+        }
 
         function initTable(tableId){
             let dt = $(`${tableId}`).DataTable({
@@ -93,6 +111,7 @@
                     let now = new Date().toISOString();
                     if(now >= expDate){
                         $(row).addClass('table-danger');
+                        alertExpProduct();
                     }
                 }
             });

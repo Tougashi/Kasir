@@ -86,7 +86,7 @@
                 <i class="bx bx-chevron-right arrow-left"></i>
                 </div>
             <ul class="menu_items submenu">
-                <a href="#" class="nav_link sublink">Transaksi</a>
+                <a href="/admin/history/transactions" class="nav_link sublink">Transaksi</a>
                 <a href="#" class="nav_link sublink">Stok Masuk</a>
                 <a href="#" class="nav_link sublink">Produk Baru</a>
             </ul>

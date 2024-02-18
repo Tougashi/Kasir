@@ -1,11 +1,13 @@
 @extends('Pages.Admin.Layout.index')
 @section('content')
+    <div id="alertExpProduct"></div>
     <div class="card">
         <div class="py-3 px-4">
             <table class="table responsive dt" id="productTable">
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Kode Produk</th>
                         <th>Nama Produk</th>
                         <th>Kategori</th>
                         <th>Stok</th>
@@ -19,6 +21,7 @@
                     @foreach ($products as $item)
                     <tr class="{{$item->expiredDate <= now() ? 'table-danger' : ''}}">
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->code }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->category->name }}</td>
                         <td>{{ $item->stock }}</td>
@@ -52,6 +55,14 @@
     <x-show-to-edit />
 @endsection
 @push('scripts')
+@php
+    $cek = \App\Models\Product::where('expiredDate', '<=', now())->count();
+@endphp
+@if ($cek > 0)
+    <script>
+        alertExpProduct();
+    </script>
+@endif
     <script>
         $().ready(function() {
             initTable('#productTable');
@@ -148,6 +159,7 @@
         function reinitDatatable(data){
             refreshDatatable(data, [
             { data: null, render: function (data, type, row, meta) { return meta.row + meta.settings._iDisplayStart + 1; } },
+            { data: "code" },
             { data: "name" },
             { data: "category.name" },
             { data: "stock" },

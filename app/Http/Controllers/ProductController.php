@@ -8,6 +8,7 @@ use App\Models\Supplier;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -149,7 +150,7 @@ class ProductController extends Controller
             if(isset($products)){
                 return response()->json(['data' => $products, 'status' => 200]);
             }else{
-                abort(404, 'Tidak ditemukan');
+                return response("Tidak ditemukan data produk $code", 404);
             }
         }else{
             abort(400);
@@ -158,11 +159,17 @@ class ProductController extends Controller
 
     public function updateStock(Request $request){
         if($request->ajax()){
-            $validate = $request->validate([
+            $validating = Validator::make($request->all(), [
                 'code' => 'required',
                 'stock' => 'required',
                 'expiredDate' => 'required|after:today'
             ]);
+
+            if($validating->fails()){
+                return response($validating->errors(), 500);
+            }
+
+            $validate = $validating->validated();
 
             $dataProduct = Product::where('code', $validate['code'])->first();
             $validate['stock'] = intval($dataProduct->stock) + intval($validate['stock']);

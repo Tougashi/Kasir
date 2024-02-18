@@ -231,7 +231,7 @@
 
         let custId = $('#custId').val();
 
-        if(custId === 'null' && productCodeArr.length < 1){
+        if(custId === '' || productCodeArr.length < 1){
             errorAlert('Data yang dibutuhkan tidak boleh Kosong');
         }else{
             let formData = new FormData();

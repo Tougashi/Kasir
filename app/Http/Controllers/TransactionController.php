@@ -36,10 +36,12 @@ class TransactionController extends Controller
                 'qty' => json_decode($order->quantity),
                 'total' => $order->totalPrice,
                 'adminName' => $order->user->username,
-                'transactionDate' => $order->created_at->format('d F Y H:i')
+                'transactionDate' => $order->created_at->format('d F Y H:i'),
+                'status' => $order->transaction->status
             ];
         }
 
+        // dd($newTransactions);
         return view('Pages.Admin.Page.Transactions.index', [
             'title' => 'Transaksi',
             'transactions' => $newTransactions,

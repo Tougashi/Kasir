@@ -50,10 +50,9 @@
                     $('#inputStock').empty();
                     addToProduct(response.data);
                 },
-                error: function(error, xhr) {
-                    errorAlert();
-                    console.log(xhr.responseText);
-                }
+                error: function (xhr, error) {
+                    errorAlert(xhr.responseText);
+                },
             });
         }
 
@@ -96,7 +95,6 @@
 
         function checkValue(){
             let value = $('#stock').val();
-            // console.log(value)
             if(value <= 0){
                 $('#stock').val('0');
             }else{
@@ -111,6 +109,9 @@
             let stock = $('#stock');
             let expiredDate = $('#expiredDate');
             let formData;
+            if(expiredDate.val() === '' || stock.val() === ''){
+                errorAlert('Data yang diperlukan tidak boleh kosong');
+            }
             if(stock.val() > 0 && expiredDate.val()){
                 formData = new FormData();
                 formData.append('code', code.val());
@@ -133,10 +134,19 @@
                         successAlert(response);
                         $('#inputStock').empty();
                     },
-                    eror: function(error, xhr){
-                        errorAlert();
-                        console.log(xhr.responseText);
-                    }
+                    error: function(xhr, status, error) {
+                        var errorMessage = JSON.parse(xhr.responseText);
+
+                        Object.keys(errorMessage).forEach(function(e) {
+                            errorMessage[e].forEach(function(message) {
+                                errorAlert(message);
+                            });
+                        });
+                    },
+
+                }).done(function(){
+                    $('#inputStock').empty();
+                    $('#code').val('');
                 });
             }
         }

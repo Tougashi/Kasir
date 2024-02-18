@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="container py-3">
-            <x-add-button />
+            {{-- <x-add-button /> --}}
             <table class="table table-responsive dt">
                 <thead>
                     <tr>
@@ -14,6 +14,7 @@
                         <th>Jumlah</th>
                         <th>Total</th>
                         <th>Tanggal Transaksi</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -26,19 +27,20 @@
                             <td>
                                 <ol>
                                     @foreach ($item['products'] as $product)
-                                        <li>{{$loop->iteration}}. {{ $product }}</li>
+                                        <li>{{ $product }}</li>
                                     @endforeach
                                 </ol>
                             </td>
                             <td>
-                                <ol>
+                                {{-- <ol> --}}
                                     @foreach ($item['qty'] as $qty)
-                                        <li>{{ $qty }}</li>
+                                        <p>{{ $qty }}</p>
                                     @endforeach
-                                </ol>
+                                {{-- </ol> --}}
                             </td>
                             <td>{{ $item['totalPrice'] }}</td>
                             <td>{{ $item['transactionDate'] }}</td>
+                            <td>{{ $item['status'] }}</td>
                             <td>
                                 <a href="{{url()->current().'/details/'.encrypt($item['transactionId'])}}/show" class="badge btn btn-primary"><i
                                         class="bi bi-eye m-auto"></i></a>
