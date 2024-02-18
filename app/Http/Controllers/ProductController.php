@@ -5,16 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
+use App\Models\RecordStock;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Validator;
+
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    protected $userController;
+
+    public function __construct(UserController $userController){
+        $this->userController = $userController;
+    }
+
+
     public function index(Request $request)
     {
         $products = Product::with('category', 'supplier')->get();
@@ -68,8 +78,16 @@ class ProductController extends Controller
             'price' => 'required',
             'description' => 'required',
             'expiredDate' => 'required',
-            'stock' => 'required'
+            'stock' => 'required',
+            'image' => 'required|file|image|max:5000',
         ]);
+
+        if($request->file('image')){
+            $thumbnailPath = 'thumbnails/' . time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/', $thumbnailPath);
+            $validated['thumbnail'] = $thumbnailPath;
+        }
+
         try {
             Product::create($validate);
             return back()->with('success', 'Data Produk berhasil disimpan');
@@ -161,7 +179,7 @@ class ProductController extends Controller
         if($request->ajax()){
             $validating = Validator::make($request->all(), [
                 'code' => 'required',
-                'stock' => 'required',
+            'stock' => 'required',
                 'expiredDate' => 'required|after:today'
             ]);
 
@@ -172,11 +190,17 @@ class ProductController extends Controller
             $validate = $validating->validated();
 
             $dataProduct = Product::where('code', $validate['code'])->first();
+            $qtyForRecord = $validate['stock'];
             $validate['stock'] = intval($dataProduct->stock) + intval($validate['stock']);
 
             if($validate){
                 try{
                     Product::where('code', $validate['code'])->update($validate);
+                    RecordStock::create([
+                        'productId' => $dataProduct->id,
+                        'userId' => $this->userController->userId(),
+                        'qty' => $qtyForRecord
+                    ]);
                     return response('Stok produk berhasil diperbarui');
                 }catch(\Exception $e){
                     return abort(500);
@@ -192,7 +216,7 @@ class ProductController extends Controller
 
     public function expired(Request $request){
         $productExpired = Product::where('expiredDate', '<=', now())->get();
-        // dd($productExpired);
+
         return view('Pages.Admin.Page.Products.expired', [
             'title' => 'Produk Kadaluarsa',
             'products' => $productExpired

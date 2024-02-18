@@ -142,6 +142,8 @@
                                 errorAlert(message);
                             });
                         });
+
+                        console.log(xhr.responseText);
                     },
 
                 }).done(function(){

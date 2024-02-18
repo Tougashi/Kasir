@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Transaction;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Validator;
@@ -134,9 +135,9 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id, $req)
+    public function show($id, $req, Request $request)
     {
-        $transaction = Order::with('user')->findOrFail(decrypt($id));
+        $transaction = Order::with('user','transaction')->findOrFail(decrypt($id));
         $transactionArr = [];
         $transactionArr[] = [
             'transactionId' => $transaction->id,
@@ -145,19 +146,24 @@ class TransactionController extends Controller
             'totalPrice' => $transaction->totalPrice,
             'admin' => $transaction->user->username,
             'customer' => $transaction->customer->username,
-            'transactionDate' => $transaction->created_at->format('d F Y H:i')
+            'transactionDate' => $transaction->created_at->format('d F Y H:i'),
+            'status' => Str::of($transaction->transaction->status)->title()
         ];
 
-        if($req === 'print'){
-            return view('Pages.Admin.Page.Transactions.print', [
-                'title' => 'Print Page',
-                'transaction' => $transactionArr
-            ]);
+        if($request->ajax()){
+            return response()->json(['data' => $transactionArr]);
         }else{
-            return view('Pages.Admin.Page.Transactions.details', [
-                'title' => 'Detail Transaksi',
-                'transaction' => $transactionArr
-            ]);
+            if($req === 'print'){
+                return view('Pages.Admin.Page.Transactions.print', [
+                    'title' => 'Print Page',
+                    'transaction' => $transactionArr
+                ]);
+            }else{
+                return view('Pages.Admin.Page.Transactions.details', [
+                    'title' => 'Detail Transaksi',
+                    'transaction' => $transactionArr
+                ]);
+            }
         }
     }
 

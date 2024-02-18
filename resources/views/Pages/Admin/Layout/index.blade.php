@@ -70,21 +70,40 @@
             </div>`);
         }
 
-        function printTable(tableId){
+        function printTable(tableId, exportColumns){
             let dt = $(`${tableId}`).DataTable({
                 responsive: true,
                 searching: true,
                 autoWidth: false,
-                dom: 'Bfrtip',
+                dom: 'Bflrtip',
                 buttons: [
-                    'colvis','copy', 'excel', 'pdf'
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: exportColumns
+                        },
+                        className: 'coy'
+                    },
+                    {
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: exportColumns
+                        },
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: exportColumns
+                        },
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: exportColumns
+                        },
+                    },
                 ],
                 destroy: true,
-                // layout: {
-                //     topStart: {
-                //         buttons: ['colvis','copy', 'csv', 'excel', 'pdf', 'print']
-                //     }
-                // },
             });
         }
 

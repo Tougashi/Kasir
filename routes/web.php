@@ -114,11 +114,9 @@ Route::middleware('auth')->group(function () {
 
             Route::prefix('history')->controller(HistoryController::class)->group(function(){
                 Route::get('/transactions', 'transactions');
+                Route::get('/stock-in', 'stockIn');
             });
 
-            // Route::prefix('orders')->controller(OrderController::class)->group(function(){
-            //     Route::get('/', 'index');
-            // });
 
         });
     });
