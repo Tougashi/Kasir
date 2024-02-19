@@ -35,6 +35,7 @@
                     @endphp
                     @unless(request()->is('admin/dashboard') || request()->is('admin/products/stock-in') || Str::endsWith($currentUrl, '/add') || Str::of($currentUrl)->contains('history'))
                         <x-add-button/>
+                        
                     @endunless
                 </div>
                 <div id="content" class="content-body">

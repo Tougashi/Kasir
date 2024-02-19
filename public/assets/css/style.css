@@ -132,6 +132,7 @@ table th, table thead {
 .sidebar {
   background-color: var(--white-color);
   width: 260px;
+  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
@@ -409,4 +410,114 @@ table th, table thead {
      }
  }
  
- 
+
+ .product-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.card-danger {
+  /* background-color: red; */
+  border: 3px solid red;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.1);
+}
+
+.product-title {
+  font-weight: bold;
+  /* margin-bottom: 10px; */
+}
+.product-code {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-size: 18px;
+  color: #007bff;
+}
+
+
+.product-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+.product-info span {
+  display: flex;
+  /* justify-content: space-between; *//
+}
+
+
+.product-info span a {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 8px 12px; 
+  font-size: 14px; 
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.product-info span a:hover {
+  background-color: #6c757d; /* Ubah warna latar belakang saat hover */
+}
+
+@media (max-width: 768px) {
+  .product-info span {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .product-info span a {
+      margin-top: 5px;
+      margin-left: 0;
+  }
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.search-btn {
+  padding: 10px 20px;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+.search-btn:hover {
+  background-color: #0056b3;
+}

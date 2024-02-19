@@ -82,6 +82,8 @@ Route::middleware('auth')->group(function () {
                     // Route::get('/expired', 'expired');
                     Route::post('/stock-in/update', 'updateStock');
                     Route::get('/get/{code}', 'getProductData');
+                    Route::get('/search-products','search')->name('search.products');
+
                 });
 
                 Route::prefix('categories')->controller(CategoryController::class)->group(function(){

@@ -7,7 +7,7 @@
                     errorAlert();
                 </script>
             @endif
-            <form action="{{url()->current().'/store'}}" method="POST" class="row">
+            <form action="{{url()->current().'/store'}}" method="POST" class="row" enctype="multipart/form-data">
                 @csrf
                 <div class="col-lg-6">
                     <label for="code">Kode Produk</label>
@@ -27,6 +27,17 @@
                     </div>
                     @endif
                 </div>
+                <div class="col-lg-6">
+                    <label for="image">Gambar Produk</label>
+                    <input type="file" name="image" id="image" class="form-control @if($errors->has('image')) is-invalid mb-0 @endif" onchange="previewImage()">
+                    @if($errors->has('image'))
+                        <div class="invalid-feedback mt-0">
+                            {{$errors->first('image')}}
+                        </div>
+                    @endif
+                    <img id="image-preview" src="#" alt="Preview" style="display: none; width: 100px; height: 100px; margin-top: 20px; margin-bottom: 20px;">
+                </div>
+                
                 <div class="col-lg-6">
                     <label for="categoryId">Pilih Kategori</label>
                     <select name="categoryId" class="form-control @if($errors->has('categoryId')) is-invalid mb-0 @endif" id="categoryId">
@@ -94,4 +105,17 @@
             </form>
         </div>
     </div>
+
+
+    @push('scripts')
+    <script>
+         function previewImage() {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#image-preview').attr('src', e.target.result).show();
+            }
+            reader.readAsDataURL(document.getElementById('image').files[0]);
+        }
+    </script>
+    @endpush
 @endsection

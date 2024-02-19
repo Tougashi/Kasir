@@ -53,6 +53,19 @@ class ProductController extends Controller
         }
     }
 
+
+    public function search(Request $request)
+    {
+        $searchText = $request->input('searchText');
+    
+        $products = Product::with('category')->where('name', 'like', "%$searchText%")
+            ->orWhere('code', 'like', "%$searchText%")
+            ->get();
+    
+        return response()->json(['data' => $products]);
+    }
+    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -79,15 +92,15 @@ class ProductController extends Controller
             'description' => 'required',
             'expiredDate' => 'required',
             'stock' => 'required',
-            'image' => 'required|file|image|max:5000',
+            'image' => 'nullable|image|max:5000', 
         ]);
-
-        if($request->file('image')){
-            $thumbnailPath = 'thumbnails/' . time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->storeAs('public/', $thumbnailPath);
-            $validated['thumbnail'] = $thumbnailPath;
+    
+        if($request->hasFile('image')) {
+            $imagePath = 'images/products/' . time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/images/products', $imagePath);
+            $validate['image'] = $imagePath;
         }
-
+    
         try {
             Product::create($validate);
             return back()->with('success', 'Data Produk berhasil disimpan');
@@ -95,14 +108,7 @@ class ProductController extends Controller
             return back()->withErrors($e->getMessage());
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        //
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -132,12 +138,21 @@ class ProductController extends Controller
             'price' => 'required',
             'description' => 'required',
             'expiredDate' => 'required',
-            'stock' => 'required'
+            'stock' => 'required',
+            'image' => 'nullable|file|image|max:5000', 
         ]);
-        try{
-            Product::where('code', $code)->update($validate);
+
+        if ($request->hasFile('image')) {
+            $imagePath = 'images/products/' . time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/', $imagePath);
+            $validate['image'] = $imagePath;
+        }
+        try {
+            $product = Product::where('code', $code)->first();
+            $product->update($validate);
+
             return back()->with('success', 'Data berhasil diperbarui');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return back()->withErrors($e->getMessage());
         }
     }
