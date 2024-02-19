@@ -44,6 +44,28 @@
         </div>
     </div>
 
+    <div class="modal modal-lg" tabindex="-1" id="transactionModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Pop up Transaksi</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mb-3">
+              <div class="row container">
+                <div class="form-group">
+                    <label for="code">Scan atau Ketik kode produk</label>
+                    <input type="text" name="code" id="code" class="form-control">
+                </div>
+              </div>
+            </div>
+            {{-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> --}}
+          </div>
+        </div>
+      </div>
 
 
 
@@ -63,6 +85,20 @@
         $(function(){
             $('[data-toggle="tooltip"]').tooltip();
         });
+
+        var map = {}; // You could also use an array
+        onkeydown = onkeyup = function(e){
+            e = e || event;
+            map[e.keyCode] = e.type == 'keydown';
+            if(map[82] && map[84]){
+                showScanModal();
+            }
+        }
+
+
+        function showScanModal(){
+            $('#transactionModal').modal('show');
+        }
 
         function alertExpProduct(){
             $('#alertExpProduct').empty().append(`<div class="alert alert-danger" role="alert">
