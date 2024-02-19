@@ -112,6 +112,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/details/{id}/{req}', 'show');
                 Route::post('/add/process', 'store');
                 Route::post('/cancel', 'destroy');
+                Route::get('/today', 'getByToday');
             });
 
             Route::prefix('history')->controller(HistoryController::class)->group(function(){

@@ -1,7 +1,7 @@
 @extends('Pages.Admin.Layout.index')
-@section('plugins')
+{{-- @section('plugins')
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
-@endsection
+@endsection --}}
 @section('content')
     <style>
         label {
@@ -94,7 +94,7 @@
     </div>
 @endsection
 @push('scripts')
-<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script> --}}
 <script>
     $().ready(function() {
         $('#custId, #productId').select2();

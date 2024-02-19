@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
+use Carbon\CarbonPeriod;
 use App\Models\Transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Validator;
 
@@ -119,8 +121,8 @@ class TransactionController extends Controller
             }
 
             try{
-                Order::create($newOrder);
-                return response('Data Transaksi berhasil di Record');
+                $orderId = Order::create($newOrder);
+                return response(['data' => encrypt($orderId->id), 'message' => 'Transaksi berhasi direcord']);
 
             }catch(\Exception $e){
                 abort($e->getMessage());
@@ -177,6 +179,39 @@ class TransactionController extends Controller
 
     public function edit($id)
     {
+
+    }
+
+    public function getByToday(Request $request)
+    {
+        $getByToday = Order::where('created_at', '<=', now())->get();
+        $transactions = $getByToday->groupBy(function ($item) {
+            return $item->created_at->format('H');
+        });
+
+        $hours = range(0, 23);
+        $transactionArr = [];
+
+        foreach ($hours as $hour) {
+            // Periksa apakah transaksi ada untuk jam tertentu
+            if ($transactions->has($hour)) {
+                // Jika ada, tambahkan 'true' ke dalam array dan dapatkan data
+                $transactionArr[$hour] = [
+                    'data' => $transactions[$hour]->count(),
+                    'total' => $transactions[$hour]->sum('totalPrice'),
+                ];
+            } else {
+                // Jika tidak, tambahkan 'false'
+                $transactionArr[$hour] = [
+                    'data' => 0,
+                    'total' => 0,
+                ];
+            }
+        }
+
+
+
+        return response()->json(['transactions' => $transactionArr, 'hours' => $hours]);
 
     }
 
