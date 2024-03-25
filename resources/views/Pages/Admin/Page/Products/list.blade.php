@@ -9,7 +9,7 @@
 <div class="container mt-5">
     <div class="row row-cols-1 row-cols-md-3 g-4" id="productContainer">
         @foreach ($products as $item)
-        <div class="col">
+        <div class="col" id="cardWrapper{{$item->code}}">
             <div class="product-card flex-column justify-content-between d-flex {{$item->expiredDate <= now() ? 'card-danger' : ''}}" data-code="{{ $item->code }}" >
                 <div class="product-image">
                     @if ($item->image)
@@ -18,24 +18,24 @@
                         <img src="https://via.placeholder.com/300x200" alt="Product Image" height="40" width="auto">
                     @endif
 
-                </div>  
+                </div>
                 <div class="product-info" class="product">
                     <h6 class="product-code">Kode : {{ $item->code }}</h6>
                     <h5 class="product-title">{{ $item->name }}</h5>
                     <p class="product-category">{{ $item->category->name }}</p>
                     <p class="product-price">STOK : {{ $item->stock }}</p>
                     <p class="product-price">Rp {{ $item->price }}</p>
-                    <p class="product-date">Tanggal Masuk {{ \Illuminate\Support\Carbon::parse($item->entryDate)->format('d F Y') }}</p>
-                    <p class="product-date">Tanggal Kadaluarsa {{ \Illuminate\Support\Carbon::parse($item->expiredDate)->format('d F Y') }}</p>           
-                    <div class="d-flex order-actions justify-content-between bg-danger">
+                    <p class="product-date">Tanggal Masuk <br>{{ \Illuminate\Support\Carbon::parse($item->entryDate)->format('d F Y') }}</p>
+                    <p class="product-date">Tanggal Kadaluarsa <br> {{ \Illuminate\Support\Carbon::parse($item->expiredDate)->format('d F Y') }}</p>
+                    <div class="d-flex order-actions justify-content-between">
                         <a href="javascript:void(0)" class="btn btn-primary btn-lg" onclick="edit('{{ $item->code }}')">
                             <i class='bi bi-eye-fill'></i>
                         </a>
-                        <a href="javascript:void(0)" class="btn btn-danger btn-lg" onclick="deleteModal('{{ $item->code }}')">
+                        <a href="javascript:void(0)" class="btn btn-danger btn-lg" onclick="deleteProduct('{{ $item->code }}')">
                             <i class='bi bi-trash-fill'></i>
                         </a>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -70,9 +70,15 @@
     </script>
 @endif
     <script>
+        let productCode = [];
         $().ready(function() {
             initTable('#product');
         });
+
+        function deleteProduct(code){
+            deleteModal(code);
+            productCode.push(code);
+        }
 
         $('#editModal').on('hidden.bs.modal', function() {
             $('.modal-title, .modal-body').empty();
@@ -129,7 +135,6 @@
                             <label for="categoryId">Kategori Produk</label>
                             <select name="categoryId" disabled id="categoryId" class="form-control">
                                 <option value=""></option>
-                                <!-- Gunakan forEach untuk melakukan iterasi pada array suppliers -->
                                 ${categories.map(category => {
                                     if (category.id == data.product.categoryId) {
                                         return `<option value="${category.id}" selected>${category.name}</option>`;
@@ -145,7 +150,6 @@
                             <label for="supplierId">Supplier Produk</label>
                             <select name="supplierId" disabled id="supplierId" class="form-control">
                                 <option value=""></option>
-                                <!-- Gunakan forEach untuk melakukan iterasi pada array suppliers -->
                                 ${suppliers.map(supplier => {
                                     if (supplier.id == data.product.supplierId) {
                                         return `<option value="${supplier.id}" selected>${supplier.name}</option>`;
@@ -171,29 +175,17 @@
                 `);
         }
 
-        function removeProductFromUI(code) {
-            var productCard = $('.product-card[data-code="' + code + '"]');
-            productCard.remove();
-        }
-        function deleteProduct(code) {
-            $.ajax({
-                url: '/delete-product',
-                type: 'POST',
-                data: { code: code },
-                success: function(response) {
-                    removeProductFromUI(code);
-                    alert('Produk berhasil dihapus.');
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                    alert('Terjadi kesalahan saat menghapus produk.');
-                }
+        function removeProductFromUI() {
+            productCode.map((code) => {
+                $(`#cardWrapper${code}`).remove();
+            //    $('.product-card[data-code="' + code + '"]').remove();
             });
         }
 
-        $().ready(function() {
-        initTable('#product');
-        });
+        function refreshData(code){
+           removeProductFromUI();
+        }
+
         function searchProducts() {
             var input, filter, productCards, productName, productCode, i;
             input = document.querySelector('.search-input');
