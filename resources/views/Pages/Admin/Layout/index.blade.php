@@ -9,16 +9,31 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/logo.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/logo.png') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link href="{{ asset('/assets/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') }}"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ asset('assets/plugins/datatable/css/datatables.css') }}">
-    <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    {{-- FONT --}}
+    <link href="{{ url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap') }}" rel="stylesheet">
+    {{-- CSS STYLE  --}}
+    <link rel="stylesheet" href="{{ asset('/assets/css/icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/icons/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert/css/sweetalert2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/plugins/Bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/plugins/BoxIcons/css/boxicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/plugins/Scrollbar/css/scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('/assets/plugins/sweetalert2/dist/sweetalert2.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('/assets/plugins/select2/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/assets/plugins/select2/css/select2-bootstrap4.css') }}"/>
+
+    {{-- JAVASCRIPT --}}
+    <script src="{{ asset('/assets/plugins/JQuery/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('/assets/plugins/Bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('/assets/plugins/Bootstrap/js/popper.min.js') }}"></script>   
+    <script src="{{ asset('/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('/assets/plugins/Scrollbar/js/scrollbar.js') }}"></script>
+    <script src="{{ asset('/assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js') }}"></script>
+    <script src="{{ asset('/assets/plugins/sweetalert2/dist/sweetalert2.js') }}"></script>  
+    <script src="{{ asset('/assets/plugins/select2/js/select2.min.js') }}"></script>
 
 
     @yield('plugins')
@@ -26,28 +41,34 @@
 
 <body>
     @include('Components.sidenav')
-
-    <div class="main-content">
-        <div class="container">
-            <div class="content-wrapper">
-                <div class="content-header">
-                    <h3 class="content-title">{{ $title }}</h3>
-                    @php
-                        $currentUrl = url()->current();
-                    @endphp
-                    @unless (request()->is('admin/dashboard') ||
-                            request()->is('admin/products/stock-in') ||
-                            Str::endsWith($currentUrl, '/add') ||
-                            Str::of($currentUrl)->contains('history'))
-                        <x-add-button />
-                    @endunless
-                </div>
-                <div id="content" class="content-body">
-                    @yield('content')
+    <section class="home-section">
+    <div class="home-content">
+        <i class='bx bx-menu'></i>
+        <span class="text"></span>
+        <div class="main-content">
+            <div class="container">
+                <div class="content-wrapper">
+                    <div class="content-header">
+                        <h3 class="content-title">{{ $title }}</h3>
+                        @php
+                            $currentUrl = url()->current();
+                        @endphp
+                        @unless (request()->is('admin/dashboard') ||
+                                request()->is('admin/products/stock-in') ||
+                                Str::endsWith($currentUrl, '/add') ||
+                                Str::of($currentUrl)->contains('history'))
+                            <x-add-button />
+                        @endunless
+                    </div>
+                    <div id="content" class="content-body">
+                        @yield('content')
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    
 
     <div class="modal modal-lg" tabindex="-1" id="transactionModal" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -124,20 +145,6 @@
     </div>
 
 
-
-
-    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap JS -->
-    <script src="{{ asset('/assets/plugins/bootstrap/js/bootstrap.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('assets/plugins/datatable/js/datatables.min.js') }}"></script>
-
-
-    {{-- Sweeetalert --}}
-    <script src="{{ asset('assets/plugins/sweetalert/js/sweetalert2.all.min.js') }}"></script>
-    <script src="{{ asset('assets/js/sweetalert/script.js') }}"></script>
-    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
-
     <script>
         const currentUrl = '{{ url()->current() }}';
         $(function() {
@@ -184,7 +191,6 @@
         function getProductData(code) {
             if (productCodeArr.includes(code)) {
                 let indexArr = productCodeArr.indexOf(code);
-                // console.log(`array index ke ${indexArr} dan di tableNumRows ke ${indexArr + 1}`);
             } else {
                 $.ajax({
                     method: 'GET',

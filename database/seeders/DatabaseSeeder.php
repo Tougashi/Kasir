@@ -20,22 +20,21 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'email' => 'admin@example.com',
             'username' => 'Admin',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('Password'),
             'roles' => 'Admin'
         ]);
         User::factory()->create([
             'email' => 'kasir@example.com',
             'username' => 'Kasir',
-            'password' => Hash::make('password'),
-            'roles' => 'Cashier'
+            'password' => Hash::make('Password'),
+            'roles' => 'Kasir'
         ]);
         User::factory()->create([
             'email' => 'pelanggan@example.com',
             'username' => 'Umum',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('Password'),
             'roles' => 'Guest'
         ]);
-
         Category::factory()->create([
             'name' => 'Makanan',
             'slug' => 'minuman',

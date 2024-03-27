@@ -41,6 +41,66 @@ Route::middleware('auth')->group(function () {
     Route::controller(AuthController::class)->group(function(){
         Route::get('/logout', 'logout')->name('logout');
     });
+    Route::controller(DashboardAdminController::class)->group(function(){
+        Route::get('/dashboard', 'index');
+    });
+    Route::controller(UserController::class)->prefix('account')->group(function(){
+        Route::get('/', 'index');
+        Route::get('/add', 'create');
+        Route::post('/add/store', 'store')->name('users.store');
+        Route::get('/edit/{user}', 'edit')->name('users.edit');
+        Route::put('/update/{user}', 'update')->name('users.update');
+        Route::get('/delete/{user}', 'destroy')->name('users.destroy');
+    });
+
+    Route::prefix('products')->group(function(){
+        Route::controller(ProductController::class)->group(function(){
+            Route::get('/', 'index');
+            Route::get('/add', 'create');
+            Route::get('/edit/{code}', 'edit');
+            Route::post('/add/store', 'store');
+            Route::post('/update/{code}', 'update');
+            Route::get('/delete/{code}', 'destroy');
+            Route::get('/stock-in', 'stockIn');
+            // Route::get('/expired', 'expired');
+            Route::post('/stock-in/update', 'updateStock');
+            Route::get('/get/{code}', 'getProductData');
+            Route::get('/search-products','search')->name('search.products');
+        });
+
+        Route::prefix('categories')->controller(CategoryController::class)->group(function(){
+            Route::get('/', 'index');
+            Route::get('/add', 'create');
+            Route::post('/create/store', 'store');
+            Route::get('/edit/{slug}', 'edit');
+            Route::get('/delete/{slug}', 'destroy');
+            Route::post('/update/{slug}', 'update');
+            Route::post('/add/store', 'store');
+        });
+    });
+
+    Route::prefix('suppliers')->controller(SupplierController::class)->group(function(){
+        Route::get('/', 'index');
+        Route::get('/add', 'create');
+        Route::get('/edit/{code}', 'edit');
+        Route::post('/add/store', 'store');
+        Route::post('/update', 'update');
+        Route::get('/delete/{code}', 'destroy');
+    });
+
+    Route::prefix('transactions')->controller(TransactionController::class)->group(function(){
+        Route::get('/', 'index');
+        Route::get('/add', 'create');
+        Route::get('/details/{id}/{req}', 'show');
+        Route::post('/add/process', 'store');
+        Route::post('/cancel', 'destroy');
+        Route::get('/today', 'getByToday');
+    });
+
+    Route::prefix('history')->controller(HistoryController::class)->group(function(){
+        Route::get('/transactions', 'transactions');
+        Route::get('/stock-in', 'stockIn');
+    });
 
     Route::get('/not-allowed-method', function(){
         return view('errors.minimal2', [
@@ -53,87 +113,5 @@ Route::middleware('auth')->group(function () {
     Route::controller(UserController::class)->prefix('user')->group(function(){
         Route::get('/info', 'show');
     });
-
-    Route::middleware('checkRole:Admin')->group(function () {
-        Route::prefix('admin')->group(function(){
-
-            Route::controller(UserController::class)->prefix('account')->group(function(){
-                Route::get('/', 'index');
-                Route::get('/add', 'create');
-                Route::post('/add/store', 'store')->name('users.store');
-                Route::get('/edit/{user}', 'edit')->name('users.edit');
-                Route::put('/update/{user}', 'update')->name('users.update');
-                Route::get('/delete/{user}', 'destroy')->name('users.destroy');
-            });
-
-            Route::controller(DashboardAdminController::class)->group(function(){
-                Route::get('/dashboard', 'index');
-            });
-
-            Route::prefix('products')->group(function(){
-                Route::controller(ProductController::class)->group(function(){
-                    Route::get('/', 'index');
-                    Route::get('/add', 'create');
-                    Route::get('/edit/{code}', 'edit');
-                    Route::post('/add/store', 'store');
-                    Route::post('/update/{code}', 'update');
-                    Route::get('/delete/{code}', 'destroy');
-                    Route::get('/stock-in', 'stockIn');
-                    // Route::get('/expired', 'expired');
-                    Route::post('/stock-in/update', 'updateStock');
-                    Route::get('/get/{code}', 'getProductData');
-                    Route::get('/search-products','search')->name('search.products');
-
-                });
-
-                Route::prefix('categories')->controller(CategoryController::class)->group(function(){
-                    Route::get('/', 'index');
-                    Route::get('/add', 'create');
-                    Route::post('/create/store', 'store');
-                    Route::get('/edit/{slug}', 'edit');
-                    Route::get('/delete/{slug}', 'destroy');
-                    Route::post('/update/{slug}', 'update');
-                    Route::post('/add/store', 'store');
-                });
-            });
-
-            Route::prefix('suppliers')->controller(SupplierController::class)->group(function(){
-                Route::get('/', 'index');
-                Route::get('/add', 'create');
-                Route::get('/edit/{code}', 'edit');
-                Route::post('/add/store', 'store');
-                Route::post('/update', 'update');
-                Route::get('/delete/{code}', 'destroy');
-            });
-
-            Route::prefix('transactions')->controller(TransactionController::class)->group(function(){
-                Route::get('/', 'index');
-                Route::get('/add', 'create');
-                Route::get('/details/{id}/{req}', 'show');
-                Route::post('/add/process', 'store');
-                Route::post('/cancel', 'destroy');
-                Route::get('/today', 'getByToday');
-            });
-
-            Route::prefix('history')->controller(HistoryController::class)->group(function(){
-                Route::get('/transactions', 'transactions');
-                Route::get('/stock-in', 'stockIn');
-            });
-
-
-        });
-    });
-
-    Route::middleware('checkRole:Cashier')->group(function () {
-        Route::prefix('cashier')->group(function(){
-            Route::controller(DashboardCashierController::class)->group(function(){
-                Route::get('/dashboard', 'index');
-            });
-        });
-    });
-
-
-
-
 
 });
