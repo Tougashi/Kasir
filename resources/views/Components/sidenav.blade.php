@@ -77,12 +77,12 @@
             </ul>
         </li>
         <li>
-            <a href="#">
-                <i class='bx bx-cog' ></i>
-                <span class="link_name">Setting</span>
+            <a href="/account">
+                <i class='bx bx-group' ></i>
+                <span class="link_name">Akun</span>
             </a>
             <ul class="sub-menu blank">
-                <li><a class="link_name" href="#">Setting</a></li>
+                <li><a class="link_name" href="#">Akun</a></li>
             </ul>
         </li>
         <li>
@@ -92,7 +92,12 @@
                     $user = auth()->user();
                     $profileImage = $user->image ? asset('storage/' . $user->image) : asset('assets/images/icons/profile-icon.jpg');
                     @endphp
-                    <img src="{{ $profileImage }}" alt="profileImg" class="img-fluid rounded-circle bg-dark p-1"/>
+                    <a href="/profile">
+                        <img src="{{ $profileImage }}" alt="profileImg" class="img-fluid rounded-circle bg-dark p-1"/>
+                    </a>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="#">Profil</a></li>
+                    </ul>
                 </div>
                 <div class="name-job">
                     @if (auth()->check())
@@ -105,9 +110,12 @@
                         @endif">{{ auth()->user()->roles }}</div>
                     @endif
                 </div>
-                <i class='bx bx-log-out' ></i>
+                <div class="profile-actions">
+                    <a href="{{ route('logout') }}"><i class="bx bx-log-out" id="log_out"></i></a>
+                </div>
             </div>
         </li>
+        
     </ul>
 </div>
 
